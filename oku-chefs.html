@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>OKU — Seasonal Highlights</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,7 +102,7 @@ html{overflow-x:hidden}
   .hero h1{font-size:2.2rem!important}
   .lead p{font-size:1.1rem!important}
 }
-#nav,.topnav{transition:transform .4s cubic-bezier(.4,0,.2,1)}#nav.nav-hidden,.topnav.nav-hidden{transform:translateY(-100%)}/*hide-reveal-nav*/</style>
+#nav,.topnav{transition:transform .4s cubic-bezier(.4,0,.2,1)}#nav.nav-hidden,.topnav.nav-hidden{transform:translateY(-100%)}/*hide-reveal-nav*/html,body{overflow-x:clip}/*scroll-clip-fix*/.topnav{padding-top:calc(1.1rem + env(safe-area-inset-top))}body{padding-bottom:env(safe-area-inset-bottom)}/*safe-area-fix*/</style>
 </head>
 <body>
   <nav class="topnav">
