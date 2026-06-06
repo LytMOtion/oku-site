@@ -92,7 +92,7 @@ html{overflow-x:hidden}
   .hero h1{font-size:2.2rem!important}
   .lead p{font-size:1.1rem!important}
 }
-.hero-img,.hero-video,.hero::before{pointer-events:none}/*scroll-touch-fix*/</style>
+.hero-img,.hero-video,.hero::before{pointer-events:none}/*scroll-touch-fix*/#nav,.topnav{transition:transform .4s cubic-bezier(.4,0,.2,1)}#nav.nav-hidden,.topnav.nav-hidden{transform:translateY(-100%)}/*hide-reveal-nav*/</style>
 </head>
 <body>
   <nav id="nav">
@@ -151,5 +151,5 @@ html{overflow-x:hidden}
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.18});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
-<script>(function(){var b=document.querySelector(".nav-toggle"),n=document.querySelector(".nav-links");if(b&&n){b.addEventListener("click",function(){n.classList.toggle("open");b.classList.toggle("on");});}})();</script></body>
+<script>(function(){var b=document.querySelector(".nav-toggle"),n=document.querySelector(".nav-links");if(b&&n){b.addEventListener("click",function(){n.classList.toggle("open");b.classList.toggle("on");});}})();</script><script>/*hide-reveal-nav*/(function(){var nav=document.querySelector('#nav')||document.querySelector('.topnav');if(!nav)return;var lastY=window.pageYOffset,ticking=false;function upd(){var y=window.pageYOffset;var nl=document.querySelector('.nav-links');var open=nl&&nl.classList.contains('open');if(open||y<80){nav.classList.remove('nav-hidden');}else if(y>lastY+6){nav.classList.add('nav-hidden');}else if(y<lastY-6){nav.classList.remove('nav-hidden');}lastY=y;ticking=false;}window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(upd);ticking=true;}},{passive:true});})();</script></body>
 </html>
