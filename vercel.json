@@ -1,6 +1,6 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/portal/index.html" }
+  "redirects": [
+    { "source": "/", "destination": "/portal/", "permanent": false }
   ],
   "headers": [
     {
