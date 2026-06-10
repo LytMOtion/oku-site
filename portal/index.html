@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0A0A0C">
+<title>Lytmotion Sales Portal — Rep Training & Enablement</title>
+<meta name="description" content="The official onboarding and sales-training platform for Lytmotion sales representatives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0A0C; --bg-2:#101116; --panel:#15161D; --panel-2:#1B1D26;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+  --ink:#F4F1EA; --ink-soft:#C6C2B8; --muted:#8A8678; --muted-2:#6B6859;
+  --gold:#C9A368; --gold-2:#E2C892; --gold-deep:#9C7A41;
+  --green:#7FB069; --red:#D88A7A; --blue:#7FA8C9;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --sidebar-w:300px;
+  --r:16px; --r-sm:10px;
+  --shadow:0 24px 60px -20px rgba(0,0,0,.7);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:var(--gold);color:#0A0A0C}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,163,104,.25);border-radius:10px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,163,104,.45)}
+
+/* ============ LOADER ============ */
+#loader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;transition:opacity .6s ease,visibility .6s}
+#loader.hide{opacity:0;visibility:hidden}
+.load-logo{font-family:var(--serif);font-size:2.4rem;letter-spacing:.55em;padding-left:.55em;color:var(--ink);font-weight:400}
+.load-sub{font-size:.62rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold)}
+.load-bar{width:160px;height:1px;background:var(--line-2);overflow:hidden;position:relative}
+.load-bar::after{content:"";position:absolute;inset:0;width:40%;background:var(--gold);animation:load 1.2s ease-in-out infinite}
+@keyframes load{0%{left:-40%}100%{left:100%}}
+
+/* ============ LAYOUT ============ */
+.app{display:flex;min-height:100vh}
+
+/* ============ SIDEBAR ============ */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:linear-gradient(180deg,#0D0D11,#0A0A0C);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:200;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.sb-head{padding:1.7rem 1.5rem 1.3rem;border-bottom:1px solid var(--line)}
+.sb-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.sb-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--gold-2),var(--gold-deep));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 18px -6px rgba(201,163,104,.6)}
+.sb-mark svg{width:18px;height:18px}
+.sb-brand-txt b{display:block;font-family:var(--serif);font-size:1.2rem;letter-spacing:.18em;font-weight:600;color:var(--ink);line-height:1}
+.sb-brand-txt span{font-size:.54rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);display:block;margin-top:.3rem}
+
+.sb-progress{padding:1.1rem 1.5rem;border-bottom:1px solid var(--line)}
+.sb-progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem}
+.sb-progress-top span:first-child{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.sb-progress-top span:last-child{font-size:.72rem;color:var(--gold-2);font-weight:500}
+.sb-track{height:5px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden}
+.sb-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-deep),var(--gold-2));border-radius:5px;transition:width .5s ease}
+
+.sb-nav{flex:1;overflow-y:auto;padding:.7rem .8rem 2rem}
+.sb-group-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-2);padding:1rem .8rem .5rem}
+.sb-link{display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;border-radius:var(--r-sm);text-decoration:none;color:var(--ink-soft);font-size:.82rem;font-weight:400;cursor:pointer;transition:background .2s,color .2s;position:relative}
+.sb-link:hover{background:rgba(255,255,255,.04);color:var(--ink)}
+.sb-link.active{background:rgba(201,163,104,.12);color:var(--gold-2)}
+.sb-link.active::before{content:"";position:absolute;left:0;top:18%;bottom:18%;width:3px;background:var(--gold);border-radius:3px}
+.sb-num{font-size:.62rem;width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--muted);font-weight:500;transition:.2s}
+.sb-link.active .sb-num{background:var(--gold);color:#0A0A0C}
+.sb-link.done .sb-num{background:rgba(127,176,105,.18);color:var(--green)}
+.sb-link.done .sb-num::after{content:"✓"}
+.sb-link.done .sb-num span{display:none}
+.sb-link-txt{flex:1;line-height:1.25}
+
+.sb-foot{padding:1rem 1.5rem;border-top:1px solid var(--line);font-size:.6rem;color:var(--muted-2);letter-spacing:.05em}
+
+/* ============ MAIN ============ */
+.main{flex:1;margin-left:var(--sidebar-w);min-width:0}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:150;height:64px;background:rgba(10,10,12,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:1rem;padding:0 clamp(1.2rem,4vw,2.6rem)}
+.menu-btn{display:none;background:none;border:1px solid var(--line-2);color:var(--ink);width:40px;height:40px;border-radius:10px;cursor:pointer;align-items:center;justify-content:center}
+.menu-btn svg{width:20px;height:20px}
+.search-trigger{flex:1;max-width:440px;display:flex;align-items:center;gap:.6rem;background:var(--panel);border:1px solid var(--line);border-radius:40px;padding:.6rem 1.1rem;color:var(--muted);font-size:.8rem;cursor:pointer;transition:border-color .2s,background .2s}
+.search-trigger:hover{border-color:var(--line-2);background:var(--panel-2)}
+.search-trigger svg{width:15px;height:15px;flex-shrink:0}
+.search-trigger .kbd{margin-left:auto;font-size:.6rem;border:1px solid var(--line-2);border-radius:5px;padding:.12rem .4rem;letter-spacing:.05em}
+.topbar-right{display:flex;align-items:center;gap:.9rem;margin-left:auto}
+.tb-stat{text-align:right;line-height:1.1}
+.tb-stat b{font-size:.8rem;color:var(--gold-2);font-weight:600}
+.tb-stat span{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold-2),var(--gold-deep));display:flex;align-items:center;justify-content:center;font-weight:600;color:#0A0A0C;font-size:.82rem;flex-shrink:0}
+
+/* content */
+.content{padding:0 0 6rem}
+.section{display:none;animation:fade .5s ease}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.wrap{max-width:920px;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.6rem)}
+
+/* hero per section */
+.shero{position:relative;min-height:340px;display:flex;align-items:flex-end;padding:clamp(1.5rem,4vw,2.6rem);overflow:hidden;border-bottom:1px solid var(--line)}
+.shero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05);filter:saturate(1.05)}
+.shero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.35) 0%,rgba(10,10,12,.55) 45%,rgba(10,10,12,.96) 100%)}
+.shero-inner{position:relative;z-index:2;max-width:920px;margin:0 auto;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-2);margin-bottom:1rem}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+.shero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.04;letter-spacing:-.01em;max-width:18ch}
+.shero p.lead{margin-top:.9rem;color:var(--ink-soft);font-size:clamp(.95rem,2vw,1.08rem);max-width:54ch;font-weight:300}
+
+/* body content */
+.body{padding-top:clamp(2rem,4vw,3rem)}
+.h2{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;letter-spacing:-.01em;margin:2.6rem 0 1rem;line-height:1.1}
+.h2:first-child{margin-top:0}
+.h3{font-family:var(--serif);font-size:1.35rem;font-weight:500;margin:1.8rem 0 .7rem;color:var(--ink)}
+.kicker{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;font-weight:500}
+p{color:var(--ink-soft);font-size:1rem;margin-bottom:1rem;font-weight:300}
+.lead-p{font-size:1.12rem;color:var(--ink);font-weight:300;line-height:1.65}
+strong,b{color:var(--ink);font-weight:600}
+em{color:var(--gold-2);font-style:italic}
+.divider{height:1px;background:var(--line);margin:3rem 0;border:0}
+
+/* cards & grids */
+.grid{display:grid;gap:1.1rem;margin:1.4rem 0}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+.grid.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem;transition:border-color .25s,transform .25s}
+.card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.card .ic{width:42px;height:42px;border-radius:11px;background:rgba(201,163,104,.12);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;color:var(--gold-2)}
+.card .ic svg{width:22px;height:22px}
+.card h4{font-size:1.02rem;font-weight:600;color:var(--ink);margin-bottom:.45rem;letter-spacing:.01em}
+.card p{font-size:.88rem;margin-bottom:0;color:var(--muted)}
+
+/* feature callout */
+.callout{background:linear-gradient(135deg,rgba(201,163,104,.1),rgba(201,163,104,.03));border:1px solid rgba(201,163,104,.22);border-radius:var(--r);padding:1.6rem 1.7rem;margin:1.6rem 0;position:relative;overflow:hidden}
+.callout::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold-2),var(--gold-deep))}
+.callout .kicker{color:var(--gold-2)}
+.callout p:last-child{margin-bottom:0}
+.callout.green{background:linear-gradient(135deg,rgba(127,176,105,.1),transparent);border-color:rgba(127,176,105,.25)}
+.callout.green::before{background:var(--green)}
+.callout.green .kicker{color:var(--green)}
+.callout.red{background:linear-gradient(135deg,rgba(216,138,122,.1),transparent);border-color:rgba(216,138,122,.25)}
+.callout.red::before{background:var(--red)}
+.callout.red .kicker{color:var(--red)}
+
+/* the "what we sell" emphasis block */
+.bigstat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:1.6rem 0}
+.bigstat>div{background:var(--panel);padding:1.5rem 1.2rem;text-align:center}
+.bigstat b{display:block;font-family:var(--serif);font-size:1.9rem;color:var(--gold-2);font-weight:500;line-height:1}
+.bigstat span{display:block;margin-top:.5rem;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* sell contrast */
+.sell-row{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin:1.4rem 0}
+.sell-col{border-radius:var(--r);padding:1.5rem;border:1px solid var(--line)}
+.sell-col.no{background:rgba(216,138,122,.05);border-color:rgba(216,138,122,.2)}
+.sell-col.yes{background:rgba(201,163,104,.06);border-color:rgba(201,163,104,.25)}
+.sell-col h4{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:1rem}
+.sell-col.no h4{color:var(--red)}
+.sell-col.yes h4{color:var(--gold-2)}
+.sell-col ul{list-style:none}
+.sell-col li{display:flex;align-items:center;gap:.6rem;padding:.4rem 0;font-size:.96rem;color:var(--ink-soft)}
+.sell-col.no li::before{content:"✕";color:var(--red);font-size:.8rem}
+.sell-col.yes li::before{content:"✓";color:var(--gold-2);font-size:.8rem}
+
+/* checklist */
+.checklist{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:.6rem .4rem;margin:1.4rem 0}
+.check-item{display:flex;align-items:flex-start;gap:.85rem;padding:.85rem 1rem;border-radius:var(--r-sm);cursor:pointer;transition:background .2s}
+.check-item:hover{background:rgba(255,255,255,.03)}
+.check-box{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line-2);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.check-box svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:.2s;color:#0A0A0C}
+.check-item.checked .check-box{background:var(--gold);border-color:var(--gold)}
+.check-item.checked .check-box svg{opacity:1;transform:scale(1)}
+.check-txt{font-size:.95rem;color:var(--ink-soft);line-height:1.45}
+.check-txt b{display:block;color:var(--ink);font-weight:600;margin-bottom:.1rem}
+.check-item.checked .check-txt{color:var(--muted)}
+.check-item.checked .check-txt b{text-decoration:line-through;text-decoration-color:var(--muted-2)}
+
+/* timeline */
+.timeline{position:relative;margin:2rem 0 1rem;padding-left:.5rem}
+.timeline::before{content:"";position:absolute;left:21px;top:14px;bottom:14px;width:2px;background:linear-gradient(180deg,var(--gold-deep),var(--line))}
+.tl-step{position:relative;padding:0 0 1.6rem 3.4rem}
+.tl-step:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:8px;top:0;width:28px;height:28px;border-radius:50%;background:var(--bg);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:var(--gold-2);z-index:2}
+.tl-step h4{font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:.3rem}
+.tl-step p{font-size:.92rem;margin-bottom:0;color:var(--muted)}
+
+/* pills/tags */
+.tags{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.2rem 0}
+.tag{font-size:.78rem;padding:.45rem .95rem;border-radius:30px;background:var(--panel-2);border:1px solid var(--line-2);color:var(--ink-soft);letter-spacing:.02em}
+.tag.gold{background:rgba(201,163,104,.12);border-color:rgba(201,163,104,.3);color:var(--gold-2)}
+
+/* pricing */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:1.8rem 0}
+.price-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.7rem 1.5rem;display:flex;flex-direction:column;position:relative;transition:transform .25s,border-color .25s}
+.price-card:hover{transform:translateY(-4px);border-color:var(--line-2)}
+.price-card.feat{background:linear-gradient(180deg,rgba(201,163,104,.1),var(--panel));border-color:rgba(201,163,104,.4);box-shadow:0 20px 50px -25px rgba(201,163,104,.4)}
+.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;background:linear-gradient(135deg,var(--gold-2),var(--gold-deep));color:#0A0A0C;padding:.3rem .9rem;border-radius:20px;font-weight:600}
+.price-name{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+.price-amt{font-family:var(--serif);font-size:2.6rem;font-weight:500;color:var(--ink);line-height:1}
+.price-amt span{font-size:.9rem;color:var(--muted);font-family:var(--sans);font-weight:400}
+.price-card ul{list-style:none;margin:1.3rem 0;flex:1}
+.price-card li{display:flex;gap:.6rem;padding:.5rem 0;font-size:.92rem;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+.price-card li::before{content:"✓";color:var(--gold-2)}
+.price-card li:last-child{border-bottom:0}
+.price-value{font-size:.84rem;color:var(--muted);font-style:italic;line-height:1.5;border-top:1px solid var(--line);padding-top:1rem}
+
+/* scripts */
+.script{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);margin:1.2rem 0;overflow:hidden}
+.script-head{display:flex;align-items:center;gap:.8rem;padding:1.1rem 1.4rem;cursor:pointer;user-select:none;transition:background .2s}
+.script-head:hover{background:rgba(255,255,255,.03)}
+.script-head .si{width:34px;height:34px;border-radius:9px;background:rgba(201,163,104,.12);display:flex;align-items:center;justify-content:center;color:var(--gold-2);flex-shrink:0}
+.script-head .si svg{width:17px;height:17px}
+.script-head h4{font-size:.98rem;font-weight:600;flex:1}
+.script-head .chev{transition:transform .3s;color:var(--muted)}
+.script.open .chev{transform:rotate(180deg)}
+.script-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.script.open .script-body{max-height:1600px}
+.script-inner{padding:0 1.4rem 1.4rem}
+.script-block{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:1.1rem 1.3rem;font-size:.92rem;color:var(--ink-soft);line-height:1.7;white-space:pre-wrap}
+.script-block + .script-block{margin-top:.8rem}
+.script-note{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:.7rem}
+.copy-btn{margin-top:.8rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:var(--panel-2);border:1px solid var(--line-2);color:var(--ink-soft);padding:.45rem .9rem;border-radius:8px;cursor:pointer;transition:.2s}
+.copy-btn:hover{background:var(--gold);color:#0A0A0C;border-color:var(--gold)}
+
+/* objections / flashcards */
+.flash-tools{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin:1.4rem 0}
+.flash-stage{perspective:1600px;margin:1.4rem 0}
+.flash{position:relative;min-height:260px;cursor:pointer}
+.flash-inner{position:relative;width:100%;min-height:260px;transition:transform .6s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.flash.flip .flash-inner{transform:rotateY(180deg)}
+.flash-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r);padding:2rem;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.flash-front{background:linear-gradient(135deg,rgba(216,138,122,.1),var(--panel))}
+.flash-back{background:linear-gradient(135deg,rgba(201,163,104,.1),var(--panel));transform:rotateY(180deg)}
+.flash-label{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:1rem}
+.flash-front .flash-label{color:var(--red)}
+.flash-back .flash-label{color:var(--gold-2)}
+.flash-q{font-family:var(--serif);font-size:1.6rem;font-weight:500;color:var(--ink);line-height:1.2}
+.flash-a{font-size:1rem;color:var(--ink-soft);line-height:1.65}
+.flash-hint{position:absolute;bottom:1.2rem;left:2rem;font-size:.66rem;color:var(--muted);letter-spacing:.04em}
+.flash-counter{font-size:.8rem;color:var(--muted)}
+.btn{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;background:var(--panel-2);border:1px solid var(--line-2);color:var(--ink-soft);padding:.6rem 1.1rem;border-radius:9px;cursor:pointer;transition:.2s;font-weight:500;font-family:var(--sans)}
+.btn:hover{background:var(--panel);border-color:var(--gold)}
+.btn.gold{background:linear-gradient(135deg,var(--gold-2),var(--gold-deep));color:#0A0A0C;border-color:transparent}
+.btn.gold:hover{filter:brightness(1.08)}
+
+/* objection reference list */
+.obj-list{margin:1.4rem 0;display:flex;flex-direction:column;gap:.7rem}
+.obj{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
+.obj-q{display:flex;align-items:flex-start;gap:.8rem;padding:1rem 1.2rem;cursor:pointer;font-size:.96rem;color:var(--ink);font-weight:500}
+.obj-q .qm{color:var(--red);font-family:var(--serif);font-size:1.3rem;line-height:1;flex-shrink:0}
+.obj-q .chev{margin-left:auto;color:var(--muted);transition:transform .3s;flex-shrink:0}
+.obj.open .chev{transform:rotate(180deg)}
+.obj-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.obj.open .obj-a{max-height:400px}
+.obj-a-in{padding:0 1.2rem 1.1rem 2.9rem;font-size:.92rem;color:var(--ink-soft);line-height:1.6}
+.obj-a-in::before{content:"Response";display:block;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+
+/* role-play */
+.scenario{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem;margin:1.1rem 0}
+.scenario-tag{display:inline-block;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;padding:.3rem .7rem;border-radius:20px;margin-bottom:.9rem;font-weight:600}
+.scenario-tag.easy{background:rgba(127,176,105,.15);color:var(--green)}
+.scenario-tag.med{background:rgba(201,163,104,.15);color:var(--gold-2)}
+.scenario-tag.hard{background:rgba(216,138,122,.15);color:var(--red)}
+.scenario h4{font-size:1.08rem;font-weight:600;margin-bottom:.5rem}
+.scenario .setup{font-size:.94rem;color:var(--ink-soft);margin-bottom:1rem}
+.scenario-reveal{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2);cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line-2);padding:.5rem 1rem;border-radius:8px;transition:.2s}
+.scenario-reveal:hover{background:rgba(201,163,104,.1)}
+.scenario-guide{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.scenario.open .scenario-guide{max-height:600px;margin-top:1rem}
+.scenario-guide-in{border-top:1px solid var(--line);padding-top:1rem;font-size:.9rem;color:var(--ink-soft);line-height:1.6}
+.scenario-guide-in ul{margin:.5rem 0 0 1.1rem}
+.scenario-guide-in li{margin-bottom:.4rem}
+
+/* quiz */
+.quiz{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.7rem;margin:1.6rem 0}
+.quiz-head{display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem}
+.quiz-head .qbadge{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;background:rgba(201,163,104,.15);color:var(--gold-2);padding:.3rem .7rem;border-radius:20px}
+.quiz-progress{font-size:.78rem;color:var(--muted);margin-left:auto}
+.quiz-q{font-family:var(--serif);font-size:1.4rem;font-weight:500;margin:1rem 0 1.2rem;line-height:1.3}
+.quiz-opts{display:flex;flex-direction:column;gap:.7rem}
+.quiz-opt{display:flex;align-items:center;gap:.8rem;padding:.95rem 1.1rem;border:1px solid var(--line-2);border-radius:var(--r-sm);cursor:pointer;transition:.2s;font-size:.95rem;color:var(--ink-soft)}
+.quiz-opt:hover{border-color:var(--gold);background:rgba(201,163,104,.05)}
+.quiz-opt .ltr{width:26px;height:26px;border-radius:7px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:.78rem;flex-shrink:0;font-weight:600;color:var(--muted)}
+.quiz-opt.correct{border-color:var(--green);background:rgba(127,176,105,.12)}
+.quiz-opt.correct .ltr{background:var(--green);color:#0A0A0C;border-color:var(--green)}
+.quiz-opt.wrong{border-color:var(--red);background:rgba(216,138,122,.12)}
+.quiz-opt.wrong .ltr{background:var(--red);color:#0A0A0C;border-color:var(--red)}
+.quiz-opt.disabled{pointer-events:none;opacity:.55}
+.quiz-opt.disabled.correct,.quiz-opt.disabled.wrong{opacity:1}
+.quiz-feedback{margin-top:1.1rem;padding:1rem 1.2rem;border-radius:var(--r-sm);font-size:.9rem;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.ok{background:rgba(127,176,105,.1);border:1px solid rgba(127,176,105,.3);color:var(--ink-soft)}
+.quiz-feedback.no{background:rgba(216,138,122,.1);border:1px solid rgba(216,138,122,.3);color:var(--ink-soft)}
+.quiz-feedback b{color:var(--ink)}
+.quiz-foot{display:flex;align-items:center;gap:1rem;margin-top:1.4rem}
+.quiz-result{text-align:center;padding:1.5rem 0}
+.quiz-result .score{font-family:var(--serif);font-size:3.4rem;color:var(--gold-2);line-height:1}
+.quiz-result .score span{font-size:1.4rem;color:var(--muted)}
+.quiz-result p{margin:.7rem 0 1.2rem}
+
+/* search overlay */
+.search-overlay{position:fixed;inset:0;z-index:500;background:rgba(5,5,7,.7);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding-top:12vh}
+.search-overlay.open{display:flex;animation:fade .25s ease}
+.search-modal{width:min(640px,92vw);background:var(--panel);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;max-height:72vh;display:flex;flex-direction:column}
+.search-input-row{display:flex;align-items:center;gap:.8rem;padding:1.1rem 1.3rem;border-bottom:1px solid var(--line)}
+.search-input-row svg{width:18px;height:18px;color:var(--gold-2);flex-shrink:0}
+#searchInput{flex:1;background:none;border:none;outline:none;color:var(--ink);font-size:1.05rem;font-family:var(--sans);font-weight:300}
+#searchInput::placeholder{color:var(--muted-2)}
+.search-esc{font-size:.6rem;border:1px solid var(--line-2);border-radius:5px;padding:.2rem .5rem;color:var(--muted);letter-spacing:.08em}
+.search-results{overflow-y:auto;padding:.6rem}
+.search-empty{padding:2.4rem 1.3rem;text-align:center;color:var(--muted);font-size:.9rem}
+.sr-item{display:block;padding:.9rem 1rem;border-radius:var(--r-sm);cursor:pointer;text-decoration:none;transition:background .15s}
+.sr-item:hover,.sr-item.sel{background:rgba(201,163,104,.1)}
+.sr-cat{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem}
+.sr-title{font-size:.96rem;color:var(--ink);font-weight:500;margin-bottom:.2rem}
+.sr-snippet{font-size:.82rem;color:var(--muted);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sr-snippet mark,.sr-title mark{background:rgba(201,163,104,.3);color:var(--gold-2);border-radius:3px;padding:0 2px}
+
+/* section nav buttons */
+.sec-nav{display:flex;justify-content:space-between;gap:1rem;margin:3rem 0 0;padding-top:2rem;border-top:1px solid var(--line)}
+.sec-nav a{flex:1;max-width:340px;text-decoration:none;border:1px solid var(--line);border-radius:var(--r);padding:1.1rem 1.3rem;transition:.2s;background:var(--panel)}
+.sec-nav a:hover{border-color:var(--gold);background:rgba(201,163,104,.05)}
+.sec-nav a.next{text-align:right;margin-left:auto}
+.sec-nav .dir{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.sec-nav .ttl{font-size:.98rem;color:var(--ink);font-weight:500}
+.sec-nav a.disabled{opacity:.35;pointer-events:none}
+
+/* complete button */
+.complete-bar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:2.4rem 0 0;padding:1.4rem;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+.complete-bar .ctxt{flex:1;min-width:200px}
+.complete-bar .ctxt b{font-size:1rem;color:var(--ink);display:block}
+.complete-bar .ctxt span{font-size:.85rem;color:var(--muted)}
+.mark-btn{display:inline-flex;align-items:center;gap:.6rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:.8rem 1.5rem;border-radius:30px;border:1px solid var(--gold);background:transparent;color:var(--gold-2);cursor:pointer;transition:.2s;font-family:var(--sans)}
+.mark-btn:hover{background:rgba(201,163,104,.12)}
+.mark-btn.done{background:var(--green);border-color:var(--green);color:#0A0A0C}
+.mark-btn svg{width:16px;height:16px}
+
+/* dashboard / welcome specifics */
+.hero-home{min-height:560px}
+.hero-home h1{font-size:clamp(2.6rem,6vw,4.4rem);max-width:16ch}
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1.8rem 0}
+.stat-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem}
+.stat-card b{font-family:var(--serif);font-size:2.2rem;color:var(--gold-2);display:block;line-height:1}
+.stat-card span{font-size:.78rem;color:var(--muted);display:block;margin-top:.5rem}
+.path-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin:1.6rem 0}
+.path-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem;cursor:pointer;transition:.25s;text-decoration:none;display:block}
+.path-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.path-card .pc-num{font-size:.6rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem}
+.path-card h4{font-size:1rem;color:var(--ink);font-weight:600;margin-bottom:.3rem}
+.path-card p{font-size:.82rem;color:var(--muted);margin:0}
+.path-card .pc-done{font-size:.7rem;color:var(--green);margin-top:.6rem;display:none}
+.path-card.done .pc-done{display:block}
+.path-card.done{border-color:rgba(127,176,105,.3)}
+
+.note-tip{display:flex;gap:.8rem;background:rgba(127,168,201,.07);border:1px solid rgba(127,168,201,.22);border-radius:var(--r-sm);padding:1rem 1.2rem;margin:1.3rem 0;font-size:.9rem;color:var(--ink-soft)}
+.note-tip .nt-ic{color:var(--blue);flex-shrink:0}
+.note-tip .nt-ic svg{width:20px;height:20px}
+
+ul.bullets{list-style:none;margin:1rem 0}
+ul.bullets li{position:relative;padding-left:1.5rem;margin-bottom:.6rem;color:var(--ink-soft);font-size:.97rem}
+ul.bullets li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* mobile */
+.scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:180}
+.scrim.show{display:block}
+@media(max-width:1080px){
+  .sell-row,.pricing,.grid.g3{grid-template-columns:1fr}
+  .grid.g2{grid-template-columns:1fr}
+}
+@media(max-width:880px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .menu-btn{display:flex}
+  .search-trigger .kbd{display:none}
+  .topbar-right .tb-stat{display:none}
+  .pricing{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .sec-nav{flex-direction:column}
+  .sec-nav a.next{margin-left:0}
+  .flash-face{padding:1.4rem}
+  .shero h1{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="load-logo">LYTMOTION</div>
+  <div class="load-sub">Sales Enablement Portal</div>
+  <div class="load-bar"></div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="app">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-head">
+      <a class="sb-brand" href="#home" data-nav="home">
+        <span class="sb-mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#0A0A0C"/></svg>
+        </span>
+        <span class="sb-brand-txt"><b>LYTMOTION</b><span>Sales Academy</span></span>
+      </a>
+    </div>
+    <div class="sb-progress">
+      <div class="sb-progress-top"><span>Your Progress</span><span id="progPct">0%</span></div>
+      <div class="sb-track"><div class="sb-fill" id="progFill"></div></div>
+    </div>
+    <nav class="sb-nav" id="sbNav">
+      <!-- populated by JS -->
+    </nav>
+    <div class="sb-foot">Lytmotion © 2026 · Internal training. Confidential.</div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <button class="search-trigger" id="searchTrigger">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
+        Search the knowledge base…
+        <span class="kbd">⌘K</span>
+      </button>
+      <div class="topbar-right">
+        <div class="tb-stat"><b id="tbDone">0/17</b><span>Modules</span></div>
+        <div class="avatar" id="repAvatar">SR</div>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+      <!-- ============================================================= -->
+      <!-- HOME / DASHBOARD -->
+      <!-- ============================================================= -->
+      <section class="section" id="home" data-title="Welcome" data-cat="Start Here">
+        <div class="shero hero-home">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Welcome to the Team</span>
+            <h1>You don't sell videos. You sell growth.</h1>
+            <p class="lead">This is your complete path from new hire to closing deals. Learn what Lytmotion does, who to target, what to say, how to handle objections, and how to close — at your own pace.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <div class="stat-cards">
+            <div class="stat-card"><b>17</b><span>Training modules</span></div>
+            <div class="stat-card"><b>20+</b><span>Objections handled</span></div>
+            <div class="stat-card"><b>5</b><span>Sales scripts</span></div>
+            <div class="stat-card"><b>3-5</b><span>Days to productive</span></div>
+          </div>
+
+          <h2 class="h2">How to use this portal</h2>
+          <p class="lead-p">Work through the modules in order. Each one builds on the last. Complete the interactive checklists, take the quizzes, drill the objection flashcards, and run the role-play scenarios out loud. Your progress saves automatically on this device.</p>
+
+          <div class="note-tip">
+            <span class="nt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+            <div>Press <b>⌘K</b> (or <b>Ctrl+K</b>) anywhere to search the entire knowledge base. Use it during live calls to find a script or objection response in seconds.</div>
+          </div>
+
+          <h2 class="h2">Your learning path</h2>
+          <div class="path-grid" id="pathGrid"><!-- populated by JS --></div>
+
+          <div class="callout">
+            <div class="kicker">Remember</div>
+            <p style="margin-bottom:0">Restaurants don't buy reels and photos. They buy <em>attention, visibility, and perceived value</em>. Everything in this portal exists to help you communicate that one idea with confidence.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 1 — WELCOME / WHO WE ARE -->
+      <!-- ============================================================= -->
+      <section class="section" id="s1" data-title="Welcome to Lytmotion" data-cat="Foundations">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 01 · Foundations</span>
+            <h1>Welcome to Lytmotion</h1>
+            <p class="lead">Before you sell anything, you need to deeply understand what we do — and what we actually sell.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <div class="kicker">Who We Are</div>
+          <p class="lead-p">Lytmotion is a creative agency specializing in <strong>cinematic content creation</strong> for restaurants, hospitality brands, hotels, bars, breweries, and hospitality groups.</p>
+
+          <h3 class="h3">What we create</h3>
+          <div class="grid g3">
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></div><h4>Cinematic Reels</h4><p>Scroll-stopping short-form video that creates attention and engagement.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M7 5 8 3h8l1 2"/></svg></div><h4>Food Photography</h4><p>Premium, editorial imagery that elevates brand perception instantly.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg></div><h4>Brand Videos</h4><p>Story-driven films that differentiate a venue from its competitors.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><h4>Social Media Content</h4><p>Consistent monthly content that keeps a brand visible and top-of-mind.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><h4>Marketing Assets</h4><p>Everything a hospitality brand needs to present itself professionally.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 15 9l7 .5-5.5 4.5L18 21l-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg></div><h4>Brand Storytelling</h4><p>The narrative layer that turns a restaurant into a destination.</p></div>
+          </div>
+
+          <div class="callout">
+            <div class="kicker">Our Mission</div>
+            <p style="margin-bottom:0">To help restaurants create a <em>strong online presence</em> through high-quality visual storytelling — so the world online finally matches the experience in person.</p>
+          </div>
+
+          <hr class="divider">
+
+          <h2 class="h2">What we actually sell</h2>
+          <p class="lead-p">This is the single most important idea in your entire training. Internalize it now.</p>
+
+          <div class="sell-row">
+            <div class="sell-col no">
+              <h4>We do NOT sell</h4>
+              <ul><li>Videos</li><li>Photos</li><li>"Content" as a commodity</li><li>Hours of filming</li><li>Files on a hard drive</li></ul>
+            </div>
+            <div class="sell-col yes">
+              <h4>We actually sell</h4>
+              <ul><li>Attention</li><li>Brand Awareness</li><li>Perceived Value</li><li>Consistency</li><li>Professional Presentation</li><li>Customer Engagement</li></ul>
+            </div>
+          </div>
+
+          <p>Restaurants buy <strong>growth and visibility</strong>. The videos and photos are simply the <em>tools</em> that deliver that outcome. When you talk to a prospect, never lead with deliverables — lead with the result those deliverables create.</p>
+
+          <div class="note-tip">
+            <span class="nt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/></svg></span>
+            <div><b>Say this, not that.</b> Instead of "We'll shoot 6 reels a month," say: "We'll keep your restaurant visible and looking premium every single week, so the right customers find you and choose you."</div>
+          </div>
+
+          <!-- QUIZ -->
+          <div class="quiz" data-quiz="s1"></div>
+
+          <!-- complete bar injected by JS -->
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 2 — UNDERSTANDING THE INDUSTRY -->
+      <!-- ============================================================= -->
+      <section class="section" id="s2" data-title="Understanding the Industry" data-cat="Foundations">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 02 · Foundations</span>
+            <h1>Understanding the restaurant industry</h1>
+            <p class="lead">To sell to restaurant owners, you have to see the world through their eyes.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Most restaurant owners are extraordinary at running a restaurant — and stretched far too thin to run a marketing operation. Understanding their reality is what makes you credible.</p>
+
+          <h3 class="h3">The reality of most restaurant owners</h3>
+          <ul class="bullets">
+            <li>They work <strong>long, exhausting hours</strong> — often open to close.</li>
+            <li>They have <strong>little to no time for marketing</strong>.</li>
+            <li>They post <strong>inconsistently</strong> — a flurry one week, silence the next.</li>
+            <li>Their content is <strong>outdated</strong> — sometimes years old.</li>
+            <li>They rely on <strong>poor cellphone photography</strong> in bad lighting.</li>
+            <li>They <strong>struggle to maintain a consistent social presence</strong>.</li>
+          </ul>
+
+          <div class="callout red">
+            <div class="kicker">The Core Problem</div>
+            <p style="margin-bottom:0">As a result, potential customers often have a <em>worse perception of the restaurant online than they do in person</em>. The food is incredible — but the feed makes it look ordinary.</p>
+          </div>
+
+          <h2 class="h2">Reframe the problem</h2>
+          <p>New salespeople make the mistake of thinking they're selling "better content." You're not. Understand the real problem:</p>
+
+          <div class="bigstat">
+            <div><b>Visibility</b><span>They aren't being seen</span></div>
+            <div><b>Consistency</b><span>They can't keep it up</span></div>
+            <div><b>Perception</b><span>They look smaller than they are</span></div>
+          </div>
+
+          <p>The problem is <strong>not</strong> content. The problem is <strong>visibility</strong>. The problem is <strong>consistency</strong>. The problem is <strong>perception</strong>. When you frame your pitch around solving those three things, you stop sounding like a videographer and start sounding like a growth partner.</p>
+
+          <div class="quiz" data-quiz="s2"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 3 — WHY RESTAURANTS NEED US -->
+      <!-- ============================================================= -->
+      <section class="section" id="s3" data-title="Why Restaurants Need Us" data-cat="Foundations">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 03 · Foundations</span>
+            <h1>Why restaurants need us</h1>
+            <p class="lead">The dining decision now happens online — before anyone walks through the door.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Modern customers <strong>discover</strong> restaurants long before they visit them. The phone is the new front door.</p>
+
+          <h3 class="h3">Where customers discover restaurants today</h3>
+          <div class="tags">
+            <span class="tag gold">Instagram</span><span class="tag gold">TikTok</span><span class="tag gold">Google</span><span class="tag gold">Reels</span><span class="tag gold">Social Sharing</span>
+          </div>
+
+          <p>Before visiting a restaurant, <strong>most customers look online first</strong>. They check the feed. They scroll the photos. They watch a reel. In a few seconds, they decide whether this place feels worth their time and money.</p>
+
+          <h2 class="h2">What happens when the online presence is weak</h2>
+          <div class="grid g2">
+            <div class="card"><h4>Fewer reservations</h4><p>An unconvincing feed means the booking never happens.</p></div>
+            <div class="card"><h4>Fewer visits</h4><p>Walk-ins choose the place that looked better online.</p></div>
+            <div class="card"><h4>Lower engagement</h4><p>No reason to follow, save, or share — so reach stays flat.</p></div>
+            <div class="card"><h4>Less brand recognition</h4><p>The restaurant blends in instead of standing out.</p></div>
+          </div>
+
+          <div class="callout">
+            <div class="kicker">Your One-Line Pitch</div>
+            <p style="margin-bottom:0">"Your future customers are deciding whether to visit you based on what they see online. <em>Lytmotion makes sure that what they see makes them choose you.</em>"</p>
+          </div>
+
+          <div class="quiz" data-quiz="s3"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 4 — OUR SERVICES -->
+      <!-- ============================================================= -->
+      <section class="section" id="s4" data-title="Our Services" data-cat="The Offer">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 04 · The Offer</span>
+            <h1>Our services</h1>
+            <p class="lead">Know every service cold — its purpose, and what it produces for the client.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Always pair a service with its <strong>purpose</strong>. The deliverable is the "what." The purpose is the "why they should care."</p>
+
+          <h2 class="h2">Cinematic Reels</h2>
+          <div class="callout"><div class="kicker">Purpose</div><p style="margin-bottom:0">Create <em>attention and engagement</em> — the top of the funnel that gets a restaurant discovered.</p></div>
+          <p>Reels showcase the moments that make people stop scrolling:</p>
+          <ul class="bullets">
+            <li><strong>Food preparation</strong> — the sizzle, the plating, the craft.</li>
+            <li><strong>Signature dishes</strong> — the hero items people travel for.</li>
+            <li><strong>Cocktails</strong> — the pour, the garnish, the glow.</li>
+            <li><strong>Atmosphere</strong> — the room, the lighting, the energy.</li>
+            <li><strong>Customer experience</strong> — real moments that build trust.</li>
+          </ul>
+
+          <hr class="divider">
+
+          <h2 class="h2">Professional Photography</h2>
+          <div class="callout"><div class="kicker">Purpose</div><p style="margin-bottom:0">Create <em>premium brand perception</em> — every photo signals the quality of the experience.</p></div>
+          <p>A consistent, polished photo library covers:</p>
+          <ul class="bullets">
+            <li><strong>Menu photography</strong> — for the website, delivery apps, and ads.</li>
+            <li><strong>Food photography</strong> — editorial-grade hero shots.</li>
+            <li><strong>Interior photography</strong> — selling the room and the mood.</li>
+            <li><strong>Team photography</strong> — humanizing the brand.</li>
+          </ul>
+
+          <hr class="divider">
+
+          <h2 class="h2">Brand Storytelling</h2>
+          <div class="callout"><div class="kicker">Purpose</div><p style="margin-bottom:0">Differentiate the restaurant from competitors — make it <em>memorable</em>, not interchangeable.</p></div>
+          <p>Story is what turns a place into a brand people are loyal to:</p>
+          <ul class="bullets">
+            <li><strong>Chef stories</strong> — the person and passion behind the plate.</li>
+            <li><strong>Restaurant history</strong> — origins, heritage, and meaning.</li>
+            <li><strong>Brand personality</strong> — the voice and feel that's unmistakably theirs.</li>
+            <li><strong>Customer experience</strong> — why people keep coming back.</li>
+          </ul>
+
+          <div class="quiz" data-quiz="s4"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 5 — HOW OUR PROCESS WORKS -->
+      <!-- ============================================================= -->
+      <section class="section" id="s5" data-title="How Our Process Works" data-cat="The Offer">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 05 · The Offer</span>
+            <h1>How our process works</h1>
+            <p class="lead">Walk a prospect through this and you remove the fear of the unknown.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Clients buy with confidence when they understand exactly what will happen. Memorize this six-step journey and be able to explain it conversationally.</p>
+
+          <div class="timeline">
+            <div class="tl-step"><div class="tl-dot">1</div><h4>Client signs agreement</h4><p>We confirm the package, scope, and monthly cadence. The agreement sets clear expectations on deliverables, timelines, and the partnership — no surprises, just a clear start.</p></div>
+            <div class="tl-step"><div class="tl-dot">2</div><h4>Content strategy session</h4><p>We sit down (in person or virtually) to learn the brand, the signature dishes, the busy windows, and the goals. We map out what we'll capture and the story we'll tell across the month.</p></div>
+            <div class="tl-step"><div class="tl-dot">3</div><h4>Filming day</h4><p>Our team arrives with professional cinema gear and lighting and captures food, atmosphere, drinks, and the team — efficiently, around the restaurant's service schedule.</p></div>
+            <div class="tl-step"><div class="tl-dot">4</div><h4>Editing & post-production</h4><p>We color-grade, edit, and craft each reel and photo to a premium standard. This is where raw footage becomes scroll-stopping, brand-defining content.</p></div>
+            <div class="tl-step"><div class="tl-dot">5</div><h4>Content delivery</h4><p>The client receives a polished, ready-to-post library — organized and on schedule — so their feed stays consistently active and looking world-class.</p></div>
+            <div class="tl-step"><div class="tl-dot">6</div><h4>Ongoing monthly relationship</h4><p>This isn't one-and-done. Every month we refresh the content, evolve the strategy, and keep the brand visible. Consistency is the product — and the reason clients stay.</p></div>
+          </div>
+
+          <div class="note-tip">
+            <span class="nt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            <div><b>Selling tip:</b> Emphasize step 6. The monthly relationship is what makes Lytmotion different from "a guy who shot us a video once." You're selling a <b>system</b>, not a session.</div>
+          </div>
+
+          <div class="quiz" data-quiz="s5"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 6 — IDEAL CLIENT PROFILE -->
+      <!-- ============================================================= -->
+      <section class="section" id="s6" data-title="Ideal Client Profile" data-cat="Targeting">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 06 · Targeting</span>
+            <h1>Ideal client profile</h1>
+            <p class="lead">Sell to the right people and the job gets ten times easier.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Not every business is a fit. Spend your energy where the budget, the ambition, and the need all line up.</p>
+
+          <h2 class="h2">Best clients to target</h2>
+          <div class="tags">
+            <span class="tag gold">Restaurants</span><span class="tag gold">Fine Dining</span><span class="tag gold">Upscale Casual</span><span class="tag gold">Cocktail Bars</span><span class="tag gold">Breweries</span><span class="tag gold">Hotels</span><span class="tag gold">Hospitality Groups</span>
+          </div>
+
+          <h2 class="h2">Signs of a good prospect</h2>
+          <div class="checklist" data-check="s6-good">
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Active Instagram account</b>They already value being online — you're improving, not convincing.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Professional website</b>A sign they invest in presentation and brand.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>High-quality food</b>Great food makes our content land — and makes them proud to show it off.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Strong customer reviews</b>Loved in person — they just need to be loved online too.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Multiple locations</b>More to market, more budget, and a relationship that can scale.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Established business</b>Stable operations mean they can commit to a monthly partnership.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Marketing budget</b>They already spend on growth — we make that spend work harder.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Owner involved in growth</b>An owner who cares about growing is an owner who buys.</div></div>
+          </div>
+
+          <h2 class="h2">Red flags — move on</h2>
+          <div class="callout red">
+            <div class="kicker">Disqualify quickly</div>
+            <ul class="bullets" style="margin:0">
+              <li><strong>No online presence</strong> — and no interest in building one.</li>
+              <li><strong>Very low customer traffic</strong> — content can't fix an empty room.</li>
+              <li><strong>Poor reputation</strong> — bad reviews and unhappy guests.</li>
+              <li><strong>No marketing budget</strong> — and unwilling to create one.</li>
+              <li><strong>Unwilling to invest in growth</strong> — the deal-breaker beneath all the others.</li>
+            </ul>
+          </div>
+          <p>Red flags aren't personal — they're a filter that protects your time. Disqualifying fast is a sales skill. The faster you say "not a fit," the more time you spend with prospects who will actually close.</p>
+
+          <div class="quiz" data-quiz="s6"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 7 — PROSPECTING GUIDE -->
+      <!-- ============================================================= -->
+      <section class="section" id="s7" data-title="Prospecting Guide" data-cat="Targeting">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 07 · Targeting</span>
+            <h1>Prospecting guide</h1>
+            <p class="lead">A full pipeline is the difference between a good month and a great one.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Prospecting is a daily habit, not an occasional task. Here's where to find quality leads and how to qualify them before you reach out.</p>
+
+          <h2 class="h2">Where to find leads</h2>
+          <div class="grid g3">
+            <div class="card"><h4>Instagram</h4><p>Search location tags and hashtags. Look at who's posting low-quality content in great venues.</p></div>
+            <div class="card"><h4>Google Maps</h4><p>Search "restaurants near [area]." Open listings, scan photos, note weak presences.</p></div>
+            <div class="card"><h4>Yelp</h4><p>High ratings + poor photos = perfect prospect. Strong reputation, weak visuals.</p></div>
+            <div class="card"><h4>Restaurant websites</h4><p>Outdated or photo-poor sites signal an owner who needs us.</p></div>
+            <div class="card"><h4>Local directories</h4><p>Chamber of commerce, foodie blogs, "best of" city lists.</p></div>
+            <div class="card"><h4>Networking events</h4><p>Industry meetups, supplier events, restaurant openings.</p></div>
+            <div class="card"><h4>Hospitality associations</h4><p>Local restaurant associations are full of ideal, organized clients.</p></div>
+          </div>
+
+          <h2 class="h2">Research checklist</h2>
+          <p>Before you ever reach out, do five minutes of homework. It makes your outreach specific — and specific outreach converts.</p>
+          <div class="checklist" data-check="s7-research">
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Review their Instagram</b>Posting frequency, content quality, follower engagement.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Review their website</b>Is it modern? Are the photos doing the food justice?</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Review Google reviews</b>Reputation and what guests rave about — your ammo for the pitch.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Review their recent posts</b>When did they last post? Is the feed alive or abandoned?</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Assess content quality</b>Cellphone shots vs. professional. Lighting, consistency, branding.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Identify the opportunity</b>Name the single biggest gap you can lead your outreach with.</div></div>
+          </div>
+
+          <div class="note-tip">
+            <span class="nt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 21-4.3-4.3M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/></svg></span>
+            <div><b>Quality over quantity.</b> Ten well-researched, perfectly-fit prospects beat a hundred random DMs. Specificity is what gets a busy owner to reply.</div>
+          </div>
+
+          <div class="quiz" data-quiz="s7"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 8 — DISCOVERY CALL FRAMEWORK -->
+      <!-- ============================================================= -->
+      <section class="section" id="s8" data-title="Discovery Call Framework" data-cat="The Conversation">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 08 · The Conversation</span>
+            <h1>Discovery call framework</h1>
+            <p class="lead">The best closers ask the best questions — then listen.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Discovery is not a pitch. It's where you diagnose the problem so your solution feels inevitable. <strong>Listen more than you talk</strong> — aim for the prospect speaking 70% of the time.</p>
+
+          <h2 class="h2">The discovery questions</h2>
+          <div class="grid g2">
+            <div class="card"><h4>How are you currently creating content?</h4><p>Reveals their process, pain, and who's doing the work today.</p></div>
+            <div class="card"><h4>Who manages your social media?</h4><p>Owner? A busy manager? A nephew? Tells you how fragile it is.</p></div>
+            <div class="card"><h4>How often do you post?</h4><p>Exposes the consistency gap — almost always your wedge.</p></div>
+            <div class="card"><h4>What marketing is currently working?</h4><p>Shows what they value and where they already see ROI.</p></div>
+            <div class="card"><h4>What challenges are you experiencing?</h4><p>Let them say the problem out loud in their own words.</p></div>
+            <div class="card"><h4>What goals do you have for the restaurant?</h4><p>Growth? More covers? A second location? Tie your pitch to it.</p></div>
+            <div class="card"><h4>What would success look like in six months?</h4><p>Paints the vision you'll help them reach — and anchors the value.</p></div>
+          </div>
+
+          <div class="callout green">
+            <div class="kicker">The Golden Rule</div>
+            <p style="margin-bottom:0">Listen more than you talk. Every problem they name in their own words is a problem you get to solve in your proposal. <em>Take notes and repeat their words back when you present.</em></p>
+          </div>
+
+          <h2 class="h2">Flow of a great discovery call</h2>
+          <div class="timeline">
+            <div class="tl-step"><div class="tl-dot">1</div><h4>Build rapport (2-3 min)</h4><p>Warm, human, genuine. Compliment something specific you noticed in your research.</p></div>
+            <div class="tl-step"><div class="tl-dot">2</div><h4>Set the frame</h4><p>"I'd love to learn about your restaurant and your goals — then I'll share if and how we can help."</p></div>
+            <div class="tl-step"><div class="tl-dot">3</div><h4>Ask & listen</h4><p>Work through the discovery questions. Dig deeper on every pain point. Stay curious.</p></div>
+            <div class="tl-step"><div class="tl-dot">4</div><h4>Confirm the problem</h4><p>"So it sounds like the real issue is consistency and how you look online — is that fair?"</p></div>
+            <div class="tl-step"><div class="tl-dot">5</div><h4>Bridge to the solution</h4><p>Only now do you connect Lytmotion to the exact problems they just described.</p></div>
+            <div class="tl-step"><div class="tl-dot">6</div><h4>Define next step</h4><p>Book the follow-up, send the proposal, or — if signals are strong — ask for the business.</p></div>
+          </div>
+
+          <div class="quiz" data-quiz="s8"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 9 — SALES SCRIPT LIBRARY -->
+      <!-- ============================================================= -->
+      <section class="section" id="s9" data-title="Sales Script Library" data-cat="The Conversation">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1556745757-8d76bdb6984b?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 09 · The Conversation</span>
+            <h1>Sales script library</h1>
+            <p class="lead">Scripts are training wheels, not handcuffs. Learn them, then make them yours.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Use these as a foundation. Personalize every one with the specific detail you found in your research. Tap a script to expand it, and use the copy button to grab the text.</p>
+          <div id="scriptLibrary"><!-- populated by JS --></div>
+
+          <div class="quiz" data-quiz="s9"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 10 — OBJECTION HANDLING -->
+      <!-- ============================================================= -->
+      <section class="section" id="s10" data-title="Objection Handling" data-cat="The Conversation">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 10 · The Conversation</span>
+            <h1>Objection handling</h1>
+            <p class="lead">An objection is not a "no." It's a request for more confidence.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Every objection follows the same pattern: <strong>acknowledge, reframe, and redirect to value</strong>. Never argue. Agree first, then guide them to a new perspective.</p>
+
+          <div class="callout">
+            <div class="kicker">The A-R-V Framework</div>
+            <p style="margin-bottom:0"><strong>Acknowledge</strong> their concern so they feel heard. <strong>Reframe</strong> the concern around the real outcome. <strong>Redirect to value</strong> — bring it back to visibility, growth, and perception.</p>
+          </div>
+
+          <h2 class="h2">Flashcard drill</h2>
+          <p>Read the objection, say your response out loud, <em>then</em> flip the card to compare. Cycle through all of them until they're second nature.</p>
+          <div class="flash-tools">
+            <button class="btn" id="flashPrev">‹ Prev</button>
+            <span class="flash-counter"><span id="flashIdx">1</span> / <span id="flashTotal">20</span></span>
+            <button class="btn" id="flashNext">Next ›</button>
+            <button class="btn gold" id="flashShuffle">⤮ Shuffle</button>
+          </div>
+          <div class="flash-stage">
+            <div class="flash" id="flashCard">
+              <div class="flash-inner">
+                <div class="flash-face flash-front">
+                  <div class="flash-label">Objection</div>
+                  <div class="flash-q" id="flashQ"></div>
+                  <div class="flash-hint">Tap to reveal the response →</div>
+                </div>
+                <div class="flash-face flash-back">
+                  <div class="flash-label">Your Response</div>
+                  <div class="flash-a" id="flashA"></div>
+                  <div class="flash-hint">Tap to flip back</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="h2">Full objection reference (20+)</h2>
+          <p>Your complete library. Search any of these instantly during a live call with <b>⌘K</b>.</p>
+          <div class="obj-list" id="objList"><!-- populated by JS --></div>
+
+          <div class="quiz" data-quiz="s10"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 11 — PRICING & PACKAGES -->
+      <!-- ============================================================= -->
+      <section class="section" id="s11" data-title="Pricing & Packages" data-cat="The Close">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 11 · The Close</span>
+            <h1>Pricing &amp; packages</h1>
+            <p class="lead">Never present price as a cost. Present it as an investment in visibility and growth.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Before you say a number, you must have established value. Pricing only feels expensive in the absence of value. Frame every package around <em>what it produces</em>, not what it contains.</p>
+
+          <div class="pricing">
+            <div class="price-card feat">
+              <div class="price-badge">Flagship</div>
+              <div class="price-name">Package 1</div>
+              <div class="price-amt">$3,200<span> / mo</span></div>
+              <ul><li>6–8 Cinematic Reels</li><li>10 Professional Photos</li><li>Monthly strategy & delivery</li></ul>
+              <div class="price-value">For brands serious about dominating their market. Enough content to post consistently all month and stay top-of-feed. This is the "we want to grow aggressively" package.</div>
+            </div>
+            <div class="price-card">
+              <div class="price-name">Package 2</div>
+              <div class="price-amt">$2,000<span> / mo</span></div>
+              <ul><li>4 Cinematic Reels</li><li>10 Professional Photos</li><li>Monthly strategy & delivery</li></ul>
+              <div class="price-value">The balanced choice. A steady stream of premium reels and a refreshed photo library every month — consistency without the flagship volume. Most popular starting point.</div>
+            </div>
+            <div class="price-card">
+              <div class="price-name">Package 3</div>
+              <div class="price-amt">$1,350<span> / mo</span></div>
+              <ul><li>10 Professional Photos</li><li>Monthly delivery</li><li>Foundation for the brand</li></ul>
+              <div class="price-value">The entry point into a Lytmotion partnership. A monthly injection of premium photography that instantly elevates how the brand looks online — and an easy first "yes" to build on.</div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="kicker">Value-Based Framing</div>
+            <p>Compare the investment to a single thing they already understand. "A handful of extra reservations a month more than covers this — and every piece of content keeps working for you long after we deliver it."</p>
+            <p style="margin-bottom:0">Anchor high. Present Package 1 first. It makes Package 2 feel reasonable and Package 3 feel like a no-brainer entry point.</p>
+          </div>
+
+          <div class="note-tip">
+            <span class="nt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            <div><b>Language matters.</b> Say "investment," not "cost." Say "package," not "plan." Say "partnership," not "contract." Say "the results this creates," not "what you get."</div>
+          </div>
+
+          <div class="quiz" data-quiz="s11"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 12 — CLOSING TECHNIQUES -->
+      <!-- ============================================================= -->
+      <section class="section" id="s12" data-title="Closing Techniques" data-cat="The Close">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 12 · The Close</span>
+            <h1>Closing techniques</h1>
+            <p class="lead">The close isn't a moment — it's the natural result of a great conversation.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">If you've diagnosed the problem and built real value, closing is simply helping them make the decision they already want to make.</p>
+
+          <h2 class="h2">How to ask for the business</h2>
+          <p>Be direct and calm. Hesitation reads as doubt. Use an assumptive close:</p>
+          <div class="script-block">"Based on everything we've talked about, Package 2 is the perfect fit to get you visible and consistent. I have filming availability next week — should we get you on the schedule?"</div>
+
+          <h2 class="h2">How to identify buying signals</h2>
+          <div class="grid g2">
+            <div class="card"><h4>They ask about logistics</h4><p>"How does filming day work?" / "When could you start?" — they're picturing it happening.</p></div>
+            <div class="card"><h4>They ask about specifics</h4><p>Questions about their dishes, their feed, their schedule mean they're engaged.</p></div>
+            <div class="card"><h4>They talk in "we" and "us"</h4><p>"So you'd post these for us?" — they've mentally hired you already.</p></div>
+            <div class="card"><h4>They go quiet and thoughtful</h4><p>Silence after value often means they're convincing themselves. Don't fill it.</p></div>
+          </div>
+
+          <h2 class="h2">How to move prospects toward a decision</h2>
+          <ul class="bullets">
+            <li><strong>Summarize their own words:</strong> "You said you're posting maybe once a week and it's all on your phone — that's exactly what we fix."</li>
+            <li><strong>Offer a clear next step:</strong> never end a call without a defined action and date.</li>
+            <li><strong>Reduce the decision:</strong> "We can start with Package 3 this month and scale up once you see the response."</li>
+          </ul>
+
+          <h2 class="h2">How to follow up professionally</h2>
+          <ul class="bullets">
+            <li>Follow up within <strong>24 hours</strong> of every conversation.</li>
+            <li>Add value each time — a relevant example, a quick idea for their feed.</li>
+            <li>Be persistent without being pushy: <strong>5–7 touch points</strong> is normal and professional.</li>
+            <li>Always propose the next step and a specific time.</li>
+          </ul>
+
+          <h2 class="h2">How to create urgency without pressure</h2>
+          <div class="callout">
+            <div class="kicker">Honest Urgency</div>
+            <p style="margin-bottom:0">Use real reasons: limited filming slots each month, an upcoming busy season worth capturing, the cost of <em>another</em> month of weak content. "Every month without consistent content is a month your competitors are getting discovered instead of you." Never invent fake deadlines — your credibility is worth more than one deal.</p>
+          </div>
+
+          <div class="quiz" data-quiz="s12"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 13 — COMMISSION STRUCTURE -->
+      <!-- ============================================================= -->
+      <section class="section" id="s13" data-title="Commission Structure" data-cat="Operating">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 13 · Operating</span>
+            <h1>Commission structure</h1>
+            <p class="lead">How you get paid for the growth you create.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">This section is maintained by Lytmotion leadership and will be finalized for your role. The placeholders below will be updated — check back, or ask your manager for the current figures.</p>
+
+          <div class="grid g2">
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h4>Commission Rate</h4><p style="font-size:1.2rem;color:var(--gold-2)"><b>TBD</b></p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 15 9l7 .5-5.5 4.5L18 21l-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg></div><h4>Bonus Structure</h4><p style="font-size:1.2rem;color:var(--gold-2)"><b>TBD</b></p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h4>Monthly Goals</h4><p style="font-size:1.2rem;color:var(--gold-2)"><b>TBD</b></p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><h4>Quarterly Goals</h4><p style="font-size:1.2rem;color:var(--gold-2)"><b>TBD</b></p></div>
+          </div>
+
+          <div class="note-tip">
+            <span class="nt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></span>
+            <div><b>For administrators:</b> Update the <code>TBD</code> values directly in this section. The structure is intentionally simple to edit as compensation is finalized.</div>
+          </div>
+
+          <div class="callout green">
+            <div class="kicker">The Mindset</div>
+            <p style="margin-bottom:0">Whatever the structure, the principle is constant: <em>your income is a direct reflection of the growth you create for clients.</em> Help more restaurants get visible, and you win alongside them.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 14 — BRAND STANDARDS -->
+      <!-- ============================================================= -->
+      <section class="section" id="s14" data-title="Lytmotion Brand Standards" data-cat="Operating">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 14 · Operating</span>
+            <h1>Lytmotion brand standards</h1>
+            <p class="lead">You are the brand. Every interaction reflects the quality of our work.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">We sell premium, professional presentation. We cannot sell it unless we <strong>embody</strong> it. Hold yourself to the standard of the content we deliver.</p>
+
+          <h2 class="h2">Professional communication</h2>
+          <ul class="bullets">
+            <li>Clear, warm, and confident — never pushy or robotic.</li>
+            <li>Free of typos and slang in written outreach. Proofread everything.</li>
+            <li>Lead with value, respect their time, and always be specific.</li>
+          </ul>
+
+          <h2 class="h2">Response times</h2>
+          <ul class="bullets">
+            <li>Reply to prospects and clients within <strong>a few hours</strong> during business hours.</li>
+            <li>Never leave a warm lead waiting overnight without acknowledgment.</li>
+            <li>Speed signals professionalism and that you value the relationship.</li>
+          </ul>
+
+          <h2 class="h2">Presentation standards</h2>
+          <ul class="bullets">
+            <li>Proposals and decks are clean, branded, and error-free.</li>
+            <li>Show portfolio work that matches the prospect's tier and style.</li>
+            <li>Everything a client sees from you should look as premium as our content.</li>
+          </ul>
+
+          <h2 class="h2">Dress code when meeting clients</h2>
+          <ul class="bullets">
+            <li>Smart, polished, and appropriate to the venue — match the room's level.</li>
+            <li>Fine dining warrants a higher standard than a casual brewery, but always err premium.</li>
+            <li>Well-groomed and put-together. You're the face of a luxury brand.</li>
+          </ul>
+
+          <h2 class="h2">Representing the brand professionally</h2>
+          <div class="callout">
+            <div class="kicker">Always Remember</div>
+            <p style="margin-bottom:0">You're not a vendor chasing a sale — you're a <em>creative partner</em> helping a business grow. Carry yourself accordingly: confident, generous, and genuinely invested in their success.</p>
+          </div>
+
+          <h2 class="h2">Maintaining long-term relationships</h2>
+          <ul class="bullets">
+            <li>The sale is the beginning, not the end — clients stay for the relationship.</li>
+            <li>Check in beyond billing. Celebrate their wins and milestones.</li>
+            <li>Happy clients refer other restaurants — your best pipeline is a delighted client.</li>
+          </ul>
+
+          <div class="quiz" data-quiz="s14"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SECTION 15 — SUCCESS PLAYBOOK -->
+      <!-- ============================================================= -->
+      <section class="section" id="s15" data-title="Success Playbook" data-cat="Operating">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">Section 15 · Operating</span>
+            <h1>The success playbook</h1>
+            <p class="lead">Top performers aren't lucky. They're consistent. Here's the daily system.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">Sales is a numbers game powered by daily habits. Run this routine every day and the results compound. Use the checklist below as your daily scorecard.</p>
+
+          <h2 class="h2">Your daily & weekly scorecard</h2>
+          <div class="checklist" data-check="s15-daily">
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Daily prospecting</b>Find and research a set number of new, well-qualified prospects every day.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Daily outreach</b>Send personalized DMs, emails, or calls to your target list — every single day.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Weekly meetings</b>Book and run discovery calls and in-person meetings each week.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Weekly follow-ups</b>Touch every open opportunity. The fortune is in the follow-up.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Pipeline management</b>Keep your CRM current — every lead's stage, notes, and next action.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Relationship building</b>Nurture existing clients and warm leads with genuine, no-ask touches.</div></div>
+            <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></div><div class="check-txt"><b>Long-term account development</b>Look for upsells, second locations, and referrals within your book.</div></div>
+          </div>
+
+          <div class="grid g3">
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h4>Protect your mornings</h4><p>Do prospecting and outreach first, before the day's distractions arrive.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><h4>Track your numbers</h4><p>Outreach → calls → proposals → closes. Know your ratios and improve them.</p></div>
+            <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 15 9l7 .5-5.5 4.5L18 21l-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg></div><h4>Stay consistent</h4><p>The rep who shows up every day beats the one who sprints then stalls.</p></div>
+          </div>
+
+          <h2 class="h2">Role-play scenarios</h2>
+          <p>Practice makes a closer. Read each scenario, work it out loud as if it were real, then reveal the coaching to compare your approach.</p>
+          <div id="scenarioList"><!-- populated by JS --></div>
+
+          <div class="quiz" data-quiz="s15"></div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- FINAL — THE MISSION -->
+      <!-- ============================================================= -->
+      <section class="section" id="final" data-title="The Lytmotion Mission" data-cat="Finish">
+        <div class="shero">
+          <div class="shero-bg" style="background-image:url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="shero-inner">
+            <span class="eyebrow">The Finish Line</span>
+            <h1>The Lytmotion mission</h1>
+            <p class="lead">Carry this with you into every conversation.</p>
+          </div>
+        </div>
+        <div class="wrap body">
+          <p class="lead-p">We help restaurants <strong>tell their story</strong> through cinematic content. We help businesses <strong>stand out</strong> in a crowded market. We create content that <strong>reflects the quality</strong> of the restaurant experience.</p>
+
+          <div class="callout">
+            <div class="kicker">Never Forget</div>
+            <p>Every salesperson should understand that we are not simply selling videos.</p>
+            <p style="margin-bottom:0">We are helping restaurant owners <em>grow their brand, increase their visibility, and create a stronger connection with their customers.</em></p>
+          </div>
+
+          <p>You now have everything you need: the philosophy, the targeting, the conversation, the objections, the pricing, and the close. The rest is reps. Go help great restaurants get the recognition they deserve.</p>
+
+          <h2 class="h2">Final assessment</h2>
+          <p>Test your mastery across everything you've learned. Pass this and you're ready to sell.</p>
+          <div class="quiz" data-quiz="final"></div>
+
+          <div class="callout green" id="finalDoneMsg" style="display:none">
+            <div class="kicker">Congratulations</div>
+            <p style="margin-bottom:0">You've completed the Lytmotion Sales Academy. You're ready to represent the brand and start closing. Welcome to the team. 🎬</p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ============ SEARCH OVERLAY ============ -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-modal">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
+      <input id="searchInput" type="text" placeholder="Search scripts, objections, pricing, anything…" autocomplete="off">
+      <span class="search-esc">ESC</span>
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="search-empty">Start typing to search the entire knowledge base — modules, scripts, objections, pricing, and more.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   LYTMOTION SALES PORTAL  —  app logic
+   ========================================================= */
+(function(){
+'use strict';
+const $=(s,c)=>(c||document).querySelector(s);
+const $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
+const store={
+  get(k,d){try{const v=localStorage.getItem('lyt_'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('lyt_'+k,JSON.stringify(v))}catch(e){}}
+};
+
+/* ---------- module registry (order matters) ---------- */
+const MODULES=[
+  {id:'s1',n:'01'},{id:'s2',n:'02'},{id:'s3',n:'03'},{id:'s4',n:'04'},
+  {id:'s5',n:'05'},{id:'s6',n:'06'},{id:'s7',n:'07'},{id:'s8',n:'08'},
+  {id:'s9',n:'09'},{id:'s10',n:'10'},{id:'s11',n:'11'},{id:'s12',n:'12'},
+  {id:'s13',n:'13'},{id:'s14',n:'14'},{id:'s15',n:'15'},{id:'final',n:'★'}
+];
+const NAV_GROUPS=[
+  {label:'Start Here',ids:['home']},
+  {label:'Foundations',ids:['s1','s2','s3']},
+  {label:'The Offer',ids:['s4','s5']},
+  {label:'Targeting',ids:['s6','s7']},
+  {label:'The Conversation',ids:['s8','s9','s10']},
+  {label:'The Close',ids:['s11','s12']},
+  {label:'Operating',ids:['s13','s14','s15']},
+  {label:'Finish',ids:['final']}
+];
+const SECTION_ORDER=['home',...MODULES.map(m=>m.id)];
+
+/* =========================================================
+   DATA: scripts, objections, scenarios, quizzes
+   ========================================================= */
+const SCRIPTS=[
+  {icon:'phone',title:'Cold Call Script',blocks:[
+    {label:'Opening',text:`Hi [Name], this is [Your Name] with Lytmotion — do you have a quick minute?\n\nGreat. I'll be brief. I came across [Restaurant] online and the food looks incredible — I had to reach out. We're a creative agency that helps restaurants like yours look as premium online as they do in person.`},
+    {label:'The hook',text:`The reason I'm calling: most owners I talk to are slammed running the restaurant, so social media ends up inconsistent — and customers are deciding whether to visit based on what they see online. Does that sound familiar at all?`},
+    {label:'The ask',text:`I'd love to learn a bit about your goals and show you what we could do for [Restaurant]. Would you have 15 minutes this week — does Tuesday or Thursday work better?`}
+  ],note:'Smile while you dial — it changes your tone. Stay warm, keep it short, and aim only to book the next conversation.'},
+  {icon:'mail',title:'Email Script',blocks:[
+    {label:'Subject lines',text:`Subject: Quick idea for [Restaurant]'s Instagram\nSubject: Loved your [signature dish] — one thought`},
+    {label:'Body',text:`Hi [Name],\n\nI came across [Restaurant] and your [specific dish / the room / the reviews] genuinely stood out — clearly a special place.\n\nOne thing I noticed: the experience online doesn't quite match the experience in person yet. That's exactly what we fix. Lytmotion creates cinematic reels and photography that keep restaurants visible and looking premium every week — so the right customers find you and choose you.\n\nWould you be open to a quick 15-minute call this week? I can share a few examples and one specific idea for [Restaurant].\n\nBest,\n[Your Name]\nLytmotion`}
+  ],note:'Always reference one specific detail from your research in the first line. Generic emails get deleted.'},
+  {icon:'chat',title:'Instagram DM Script',blocks:[
+    {label:'First message',text:`Hey [Restaurant]! 👋 Just came across your page — that [specific dish] looks unreal. We help restaurants turn food like that into scroll-stopping reels and photos that pull in new customers. Mind if I send over a quick example of what we could do for you?`},
+    {label:'If they reply',text:`Amazing — appreciate you! Quick question so I can be useful: who's handling your content right now, and how often are you able to post? Most owners we work with just don't have the time to stay consistent — that's the gap we fill. Open to a quick 15-min call this week?`}
+  ],note:'Keep DMs casual and human. One specific compliment, one light question, one easy ask. Never paste a wall of text.'},
+  {icon:'refresh',title:'Follow-Up Script',blocks:[
+    {label:'Follow-up 1 (value add)',text:`Hi [Name], following up on my note. I actually put together a quick idea for [Restaurant] — a reel concept around your [signature dish] that I think would perform really well. Want me to send it over?`},
+    {label:'Follow-up 2 (gentle nudge)',text:`Hey [Name], I know things get busy running a restaurant. No pressure at all — just want to make sure this didn't get buried. Would it be easier to grab 10 minutes [day] morning?`},
+    {label:'Follow-up 3 (break-up)',text:`Hi [Name], I don't want to crowd your inbox so this'll be my last note for now. If keeping [Restaurant] consistently visible online is ever a priority, I'd love to help. I'm one message away whenever the timing's right.`}
+  ],note:'Persistence is professional. 5–7 touches is normal. Add value or a new angle each time — never just "circling back."'},
+  {icon:'users',title:'Meeting / Discovery Script',blocks:[
+    {label:'Open & frame',text:`Thanks so much for the time, [Name]. Here's what I'd love to do: first, just learn about your restaurant and what you're trying to grow toward. Then, if it makes sense, I'll show you exactly how we'd help. Sound good?`},
+    {label:'Discovery (let them talk)',text:`So tell me — how are you handling content and social right now?\n• Who's managing it?\n• How often are you able to post?\n• What's working in your marketing today?\n• What's the biggest challenge?\n• Where do you want the restaurant to be in six months?`},
+    {label:'Bridge to value',text:`Everything you just said — the inconsistency, looking premium online, getting discovered by new customers — that's exactly what we solve. Let me show you what consistent, cinematic content would do for [Restaurant]…`},
+    {label:'Close',text:`Based on your goals, I'd recommend [Package]. It keeps you visible and looking world-class every month. I've got filming availability next week — should we get you on the schedule?`}
+  ],note:'In meetings, talk 30%, listen 70%. Take notes and mirror their exact words back when you present the solution.'}
+];
+
+const OBJECTIONS=[
+  {q:"We already have a photographer.",a:"That's great — and many of our clients did too. What they needed wasn't another photographer; it was a consistent content strategy and a system that continuously produces engaging content month after month, not just a one-off shoot."},
+  {q:"We don't have the budget.",a:"I completely understand. Most successful restaurants already invest in marketing in some form. Our goal is simply to help that investment produce better results through stronger content and brand positioning — often it's about redirecting spend, not adding it."},
+  {q:"We need to think about it.",a:"Absolutely — most thoughtful owners want to make a careful decision. Let me make that easier: what's the one thing you're unsure about? I'll give you the examples and answers you need so you can decide with full confidence."},
+  {q:"We do our own social media.",a:"That's awesome that you're already active. The challenge most owners hit is consistency and quality while running a restaurant. We don't replace your voice — we give you premium content so every post looks like a brand people want to visit."},
+  {q:"We're too busy right now.",a:"That's exactly why our clients hire us — because they're too busy to do it well themselves. We handle the entire process so it's basically hands-off for you. Being busy is the reason to start, not the reason to wait."},
+  {q:"It's too expensive.",a:"I hear you. Let's look at it as an investment rather than a cost — even a handful of extra reservations a month more than covers it, and every piece of content keeps working for you long after we deliver it. Which package fits where you want to start?"},
+  {q:"How do I know it will work?",a:"Fair question. The truth is, customers are already deciding whether to visit you based on what they see online — that's happening whether we work together or not. We make sure what they see makes them choose you. I can also show you results we've created for similar restaurants."},
+  {q:"We tried marketing before and it didn't work.",a:"That's frustrating, and unfortunately common — usually because it was inconsistent or low quality. What we do is different: premium, cinematic content delivered consistently every month. Consistency is exactly what makes it work where one-off efforts failed."},
+  {q:"Send me some information and I'll review it.",a:"Happy to — and I'll make it specific to [Restaurant] rather than generic. So I send the right thing: what matters most to you, getting discovered by new customers or looking more premium? Then let's grab 10 minutes once you've looked so I can answer questions."},
+  {q:"My nephew / a friend does our videos.",a:"That's a great resource for casual posts. Where we come in is the premium, cinematic level that defines a brand — professional lighting, cameras, and editing, delivered on a reliable schedule. Many clients keep the casual stuff and use us for the content that represents the brand."},
+  {q:"We're not on social media much.",a:"That's actually the biggest opportunity. Your future customers are on Instagram, TikTok, and Google right now looking for places to eat. Even a strong, consistent presence would put you in front of people who don't know you exist yet."},
+  {q:"Business is good, we don't need it.",a:"That's fantastic — and the best time to invest in your brand is from a position of strength. Strong businesses that stay visible stay strong. This is about protecting and extending the lead you already have, not fixing a problem."},
+  {q:"Can you guarantee more customers?",a:"I won't promise a specific number — anyone who does isn't being honest. What I can promise is that you'll be consistently visible and look premium to everyone discovering you online, which is exactly what drives more visits over time."},
+  {q:"Why is it monthly? Can't we just do one shoot?",a:"You could — but a single shoot is a moment, and visibility is built on consistency. One batch of content gets stale fast. The monthly relationship is what keeps your feed alive and your brand top-of-mind, which is where the real growth comes from."},
+  {q:"We'll do it in our slow season.",a:"I understand the instinct — but your busy season is exactly when you have the best food, energy, and atmosphere to capture, and the most customers searching. We can film now and roll the content out over time so you're covered through the slow season too."},
+  {q:"I need to talk to my business partner.",a:"Of course — that's a smart decision to make together. Would it help if I joined a quick call with both of you so I can answer their questions directly? That way nothing gets lost in translation and you can decide with all the information."},
+  {q:"Your competitor is cheaper.",a:"There's almost always someone cheaper, and price usually reflects the quality and consistency you get. We're not the budget option — we're the one that makes your restaurant look like the premium destination it is. That's the difference customers feel when they're choosing where to go."},
+  {q:"We don't have time for a filming day.",a:"We build the entire shoot around your schedule — we work efficiently during your slower hours so it barely touches service. Our job is to make this effortless for you; the time investment on your end is minimal."},
+  {q:"How is this different from an influencer?",a:"Influencers borrow their audience for one post. We build your owned brand — a library of premium content you keep forever and use everywhere: your feed, your website, your ads, delivery apps. It's an asset, not a one-time mention."},
+  {q:"Let me get back to you after the holidays / next quarter.",a:"Totally fair. I'll follow up then — but I'd gently point out that every month without consistent content is a month your competitors are getting discovered instead of you. Even starting small now keeps your momentum going while you decide on more."},
+  {q:"We just need a few photos, not the whole thing.",a:"Perfect — that's exactly what Package 3 is for. It's a monthly injection of premium photography that instantly elevates how you look online, and it's an easy place to start. We can always scale up once you see the response."},
+  {q:"I'm not the decision-maker.",a:"No problem at all — thanks for being upfront. Who's the best person to include, and would it make sense for the three of us to connect briefly? I'll keep it short and make sure they have everything they need to decide."}
+];
+
+const SCENARIOS=[
+  {level:'easy',name:'Easy',title:'The interested-but-busy owner',setup:`You DM a fine-dining spot. The owner replies: "Looks cool but honestly I'm slammed, maybe later." How do you keep it alive and move toward a call?`,guide:`<b>Coaching:</b><ul><li>Agree and use their busyness as the reason to act: "That's exactly why our clients hire us — we handle it all so it's hands-off."</li><li>Lower the commitment: ask for 10 minutes, not 30.</li><li>Offer two specific time options to make replying easy.</li><li>Add a value hook: "I'll even bring one reel idea for your [dish]."</li></ul>`},
+  {level:'med',name:'Medium',title:'The "we have a photographer" pushback',setup:`On a discovery call, the owner says: "We already pay a photographer, so we're covered on content." Walk through your response.`,guide:`<b>Coaching:</b><ul><li>Acknowledge sincerely — don't dismiss their photographer.</li><li>Reframe: they have photos, but do they have a consistent monthly <i>system</i> of cinematic content?</li><li>Distinguish one-off shoots from ongoing visibility.</li><li>Ask a question: "How often are you getting fresh content right now?" — let the gap surface itself.</li></ul>`},
+  {level:'med',name:'Medium',title:'The price-shopper',setup:`A brewery owner is interested but says: "Another company quoted us less for the same thing." How do you hold your value without discounting?`,guide:`<b>Coaching:</b><ul><li>Never panic or immediately drop price.</li><li>Acknowledge there's always someone cheaper.</li><li>Reframe around quality, consistency, and the premium perception you create.</li><li>Re-anchor on the outcome: more visibility, more reservations, a brand that looks like a destination.</li><li>If needed, offer to start at a smaller package — scale, don't slash.</li></ul>`},
+  {level:'hard',name:'Hard',title:'The skeptical multi-location group',setup:`You're presenting to a hospitality group's marketing director who's seen every pitch. They say: "Prove this actually drives revenue, not just likes." This is your biggest potential deal.`,guide:`<b>Coaching:</b><ul><li>Match their sophistication — be calm, data-aware, and consultative.</li><li>Don't over-promise specific numbers; be honest about what you can and can't guarantee.</li><li>Connect content to the real funnel: discovery → perception → reservations/visits.</li><li>Lean on consistency and brand equity across all their locations.</li><li>Propose a clear next step: a pilot at one location, or a strategy session to map goals.</li><li>Bring relevant examples and speak their language (brand, funnel, ROI).</li></ul>`},
+  {level:'hard',name:'Hard',title:'The "think about it" stall at the close',setup:`You've delivered a great pitch. The owner nods along, then says: "This all sounds good… let me think about it and get back to you." Close the gap.`,guide:`<b>Coaching:</b><ul><li>Don't accept the vague stall — gently surface the real hesitation.</li><li>"Totally fair — just so I can help, what's the one thing you're unsure about: the timing, the investment, or whether it'll work?"</li><li>Handle whichever objection actually surfaces.</li><li>Reduce the decision: offer to start with a smaller package this month.</li><li>Lock a concrete next step with a date — never leave it open-ended.</li></ul>`}
+];
+
+const QUIZZES={
+  s1:[
+    {q:"What does Lytmotion actually sell?",opts:["Videos and photos","Attention, visibility, and perceived value","Filming hours","Hard drives of content"],correct:1,why:"We sell the outcome — attention, brand awareness, and perceived value. Videos and photos are just the tools that deliver it."},
+    {q:"A prospect asks what they'll get. The best framing is:",opts:["\"Six reels and ten photos a month.\"","\"Files delivered to your inbox.\"","\"We keep you visible and looking premium so the right customers choose you.\"","\"Whatever you want filmed.\""],correct:2,why:"Lead with the result, not the deliverables. Deliverables are the 'what'; the outcome is the 'why they care'."}
+  ],
+  s2:[
+    {q:"According to the training, the restaurant's core problem is NOT content — it's:",opts:["Bad food","Visibility, consistency, and perception","Pricing their menu","Hiring staff"],correct:1,why:"Reframe away from 'better content.' The real problems are visibility, consistency, and perception."},
+    {q:"What common situation does the training highlight about owners' online presence?",opts:["Customers see them as better online than in person","Customers often perceive them as worse online than in person","Owners post too professionally","Owners spend too much on marketing"],correct:1,why:"The food is great, but the feed makes it look ordinary — perception online lags reality."}
+  ],
+  s3:[
+    {q:"Where do modern customers primarily discover restaurants?",opts:["Newspaper ads","Instagram, TikTok, Google, and reels","Radio","Billboards only"],correct:1,why:"The phone is the new front door — discovery happens on social and search first."},
+    {q:"A weak online presence most directly leads to:",opts:["More reservations","Fewer reservations, visits, and engagement","Better reviews","Higher prices"],correct:1,why:"Weak presence means fewer reservations, fewer visits, lower engagement, and less recognition."}
+  ],
+  s4:[
+    {q:"The purpose of Cinematic Reels is to:",opts:["Create premium brand perception","Create attention and engagement","Differentiate from competitors","Replace the website"],correct:1,why:"Reels live at the top of the funnel — their job is attention and engagement."},
+    {q:"Professional Photography primarily creates:",opts:["Attention and engagement","Premium brand perception","Chef stories","Urgency"],correct:1,why:"Photography signals quality — it builds premium brand perception."},
+    {q:"Brand Storytelling exists mainly to:",opts:["Differentiate the restaurant from competitors","Lower the price","Speed up filming","Replace reels"],correct:0,why:"Story makes a restaurant memorable instead of interchangeable."}
+  ],
+  s5:[
+    {q:"Which step makes Lytmotion different from a one-time videographer?",opts:["Filming day","The ongoing monthly relationship","Signing the agreement","Editing"],correct:1,why:"The monthly relationship is the product — you're selling a system, not a session."},
+    {q:"What's the correct order of the first three steps?",opts:["Filming → Strategy → Agreement","Agreement → Strategy session → Filming day","Strategy → Filming → Delivery","Delivery → Agreement → Filming"],correct:1,why:"Sign the agreement, hold the strategy session, then film."}
+  ],
+  s6:[
+    {q:"Which is a STRONG sign of a good prospect?",opts:["No online presence","Very low customer traffic","Active Instagram and strong reviews","Unwilling to invest in growth"],correct:2,why:"An active account plus strong reviews means they value presence and have a great product to showcase."},
+    {q:"Which is a RED FLAG you should disqualify on?",opts:["Multiple locations","Owner involved in growth","Unwilling to invest in growth","Marketing budget"],correct:2,why:"Unwillingness to invest in growth is the deal-breaker beneath all the other red flags."}
+  ],
+  s7:[
+    {q:"Before reaching out to a prospect, you should first:",opts:["Send a generic template to everyone","Research their Instagram, website, and reviews","Quote a price immediately","Ask for a deposit"],correct:1,why:"Five minutes of research makes outreach specific — and specific outreach converts."},
+    {q:"On Yelp, the ideal prospect profile is:",opts:["Low rating, great photos","High rating, poor photos","Low rating, poor photos","No listing at all"],correct:1,why:"Strong reputation + weak visuals = a perfect prospect. They're loved in person, just not online."}
+  ],
+  s8:[
+    {q:"On a discovery call, you should aim to:",opts:["Talk 70% of the time","Listen 70% of the time","Pitch immediately","Avoid asking questions"],correct:1,why:"Listen more than you talk. Discovery is diagnosis, not a pitch."},
+    {q:"Why ask 'What would success look like in six months?'",opts:["To fill time","To anchor your value to their own vision of success","To change the subject","To end the call"],correct:1,why:"It paints the vision you'll help them reach and ties your solution to their goals."}
+  ],
+  s9:[
+    {q:"The most important element of any cold outreach is:",opts:["A long list of your services","A specific detail from your research","Your pricing","A hard deadline"],correct:1,why:"Reference one specific detail — generic outreach gets ignored."},
+    {q:"How many follow-up touches is considered normal and professional?",opts:["1","2","5–7","20"],correct:2,why:"5–7 touches is normal — persistence is professional when you add value each time."}
+  ],
+  s10:[
+    {q:"The objection-handling framework is:",opts:["Argue, defend, repeat","Acknowledge, reframe, redirect to value","Discount immediately","Ignore and move on"],correct:1,why:"A-R-V: Acknowledge, Reframe, Redirect to value. Never argue."},
+    {q:"\"We already have a photographer.\" The best response emphasizes:",opts:["Their photographer is bad","A consistent content strategy and system, not a one-off","An immediate discount","Walking away"],correct:1,why:"They have photos; what they need is a consistent monthly system of content."},
+    {q:"An objection is best understood as:",opts:["A firm no","A request for more confidence","An insult","A reason to give up"],correct:1,why:"Objections are requests for more confidence — opportunities, not rejections."}
+  ],
+  s11:[
+    {q:"Pricing should always be positioned as:",opts:["A cost","An investment in visibility and growth","A discount","A favor"],correct:1,why:"Never present price as a cost. It's an investment in visibility and brand growth."},
+    {q:"Which package is the flagship at $3,200/month?",opts:["10 photos only","4 reels + 10 photos","6–8 reels + 10 photos","Reels only"],correct:2,why:"Package 1 — $3,200/mo — includes 6–8 reels and 10 professional photos."},
+    {q:"Anchoring high means you should present packages:",opts:["Cheapest first","Most expensive (Package 1) first","In random order","Never mention Package 1"],correct:1,why:"Present Package 1 first — it makes the others feel reasonable by comparison."}
+  ],
+  s12:[
+    {q:"Which is a clear buying signal?",opts:["They ask about filming logistics and start dates","They stop replying","They say it's irrelevant","They hang up"],correct:0,why:"Logistics questions mean they're picturing it happening — a strong buying signal."},
+    {q:"How should you create urgency?",opts:["Invent fake deadlines","Use honest reasons like limited filming slots and the cost of waiting","Pressure aggressively","Threaten a price increase that isn't real"],correct:1,why:"Use real urgency. Fake deadlines destroy the credibility your close depends on."}
+  ],
+  s14:[
+    {q:"Why do brand standards matter for a salesperson?",opts:["They don't","We sell premium presentation, so we must embody it","Only managers care","To slow down sales"],correct:1,why:"We sell premium, professional presentation — we can't sell it unless we embody it."},
+    {q:"The sale should be treated as:",opts:["The end of the relationship","The beginning of a long-term relationship","A one-time transaction","Unimportant once signed"],correct:1,why:"The sale is the beginning. Long-term relationships drive retention and referrals."}
+  ],
+  s15:[
+    {q:"What separates top performers in sales?",opts:["Luck","Daily consistency and habits","Talking more than listening","Avoiding follow-ups"],correct:1,why:"Consistency compounds. The rep who shows up daily beats the one who sprints then stalls."},
+    {q:"Where is 'the fortune,' according to the playbook?",opts:["In the first call","In the follow-up","In discounting","In cold emails only"],correct:1,why:"The fortune is in the follow-up — touch every open opportunity weekly."}
+  ],
+  final:[
+    {q:"What does Lytmotion fundamentally sell?",opts:["Videos","Growth, visibility, and perceived value","Camera gear","Editing software"],correct:1,why:"The core truth: we sell growth and visibility, not videos and photos."},
+    {q:"A prospect says 'We don't have the budget.' Best move?",opts:["End the call","Reframe marketing as an investment that can be redirected to produce better results","Immediately halve the price","Argue with them"],correct:1,why:"Acknowledge, then reframe around redirecting existing marketing spend for better results."},
+    {q:"The discovery call golden rule is:",opts:["Pitch hard and fast","Listen more than you talk","Never ask questions","Quote price first"],correct:1,why:"Listen 70% of the time. Every problem they name is one you get to solve."},
+    {q:"Pricing should be framed as:",opts:["A cost","An investment in visibility and growth","A discount","A risk"],correct:1,why:"Always an investment in visibility and brand growth — never a cost."},
+    {q:"Which is a red-flag prospect to disqualify?",opts:["Active Instagram","Strong reviews","Unwilling to invest in growth","Multiple locations"],correct:2,why:"Unwillingness to invest in growth is the disqualifier."},
+    {q:"The objection-handling framework is:",opts:["Acknowledge, reframe, redirect to value","Argue and defend","Discount and beg","Ignore"],correct:0,why:"A-R-V — Acknowledge, Reframe, Redirect to value."}
+  ]
+};
+
+/* =========================================================
+   RENDER: sidebar nav + path grid
+   ========================================================= */
+function renderNav(){
+  const nav=$('#sbNav');
+  let html='';
+  NAV_GROUPS.forEach(g=>{
+    html+=`<div class="sb-group-label">${g.label}</div>`;
+    g.ids.forEach(id=>{
+      const sec=$('#'+id);
+      const title=sec.dataset.title;
+      const mod=MODULES.find(m=>m.id===id);
+      const num=mod?mod.n:'<svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+      html+=`<a class="sb-link" data-nav="${id}" id="nav-${id}">
+        <span class="sb-num"><span>${num}</span></span>
+        <span class="sb-link-txt">${title}</span>
+      </a>`;
+    });
+  });
+  nav.innerHTML=html;
+  $$('.sb-link',nav).forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.nav);closeSidebar();}));
+
+  // path grid on home
+  const pg=$('#pathGrid');
+  pg.innerHTML=MODULES.map(m=>{
+    const sec=$('#'+m.id);
+    return `<a class="path-card" data-nav="${m.id}" id="path-${m.id}">
+      <div class="pc-num">Module ${m.n}</div>
+      <h4>${sec.dataset.title}</h4>
+      <p>${sec.dataset.cat}</p>
+      <div class="pc-done">✓ Completed</div>
+    </a>`;
+  }).join('');
+  $$('.path-card',pg).forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.nav);}));
+}
+
+/* =========================================================
+   RENDER: scripts, objections, scenarios
+   ========================================================= */
+const ICONS={
+  phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>',
+  chat:'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+  refresh:'<path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'
+};
+function renderScripts(){
+  $('#scriptLibrary').innerHTML=SCRIPTS.map((s,i)=>`
+    <div class="script" data-script="${i}">
+      <div class="script-head">
+        <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">${ICONS[s.icon]}</svg></span>
+        <h4>${s.title}</h4>
+        <span class="chev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span>
+      </div>
+      <div class="script-body"><div class="script-inner">
+        ${s.blocks.map(b=>`<div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:1rem 0 .4rem">${b.label}</div><div class="script-block">${b.text.replace(/</g,'&lt;')}</div>`).join('')}
+        <button class="copy-btn" data-copy="${i}">⧉ Copy full script</button>
+        <div class="script-note">${s.note}</div>
+      </div></div>
+    </div>`).join('');
+  $$('.script-head').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+  $$('.copy-btn').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const s=SCRIPTS[+b.dataset.copy];
+    const txt=s.blocks.map(x=>`[${x.label}]\n${x.text}`).join('\n\n');
+    navigator.clipboard&&navigator.clipboard.writeText(txt);
+    const o=b.textContent;b.textContent='✓ Copied';setTimeout(()=>b.textContent=o,1600);
+  }));
+}
+function renderObjections(){
+  $('#objList').innerHTML=OBJECTIONS.map((o,i)=>`
+    <div class="obj" data-obj="${i}">
+      <div class="obj-q"><span class="qm">"</span><span>${o.q}</span><span class="chev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span></div>
+      <div class="obj-a"><div class="obj-a-in">${o.a}</div></div>
+    </div>`).join('');
+  $$('.obj-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
+}
+function renderScenarios(){
+  $('#scenarioList').innerHTML=SCENARIOS.map((s,i)=>`
+    <div class="scenario" data-sc="${i}">
+      <span class="scenario-tag ${s.level}">${s.name} · Role-play</span>
+      <h4>${s.title}</h4>
+      <div class="setup">${s.setup}</div>
+      <span class="scenario-reveal">▶ Reveal coaching</span>
+      <div class="scenario-guide"><div class="scenario-guide-in">${s.guide}</div></div>
+    </div>`).join('');
+  $$('.scenario-reveal').forEach(r=>r.addEventListener('click',()=>{
+    const sc=r.closest('.scenario');sc.classList.toggle('open');
+    r.textContent=sc.classList.contains('open')?'▾ Hide coaching':'▶ Reveal coaching';
+  }));
+}
+
+/* =========================================================
+   FLASHCARDS (objection drill)
+   ========================================================= */
+let flashOrder=OBJECTIONS.map((_,i)=>i), flashPos=0;
+function renderFlash(){
+  const idx=flashOrder[flashPos];
+  $('#flashCard').classList.remove('flip');
+  setTimeout(()=>{
+    $('#flashQ').textContent='"'+OBJECTIONS[idx].q+'"';
+    $('#flashA').textContent=OBJECTIONS[idx].a;
+  },120);
+  $('#flashIdx').textContent=flashPos+1;
+  $('#flashTotal').textContent=flashOrder.length;
+}
+function initFlash(){
+  $('#flashCard').addEventListener('click',()=>$('#flashCard').classList.toggle('flip'));
+  $('#flashNext').addEventListener('click',()=>{flashPos=(flashPos+1)%flashOrder.length;renderFlash();});
+  $('#flashPrev').addEventListener('click',()=>{flashPos=(flashPos-1+flashOrder.length)%flashOrder.length;renderFlash();});
+  $('#flashShuffle').addEventListener('click',()=>{
+    for(let i=flashOrder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[flashOrder[i],flashOrder[j]]=[flashOrder[j],flashOrder[i]];}
+    flashPos=0;renderFlash();
+  });
+  renderFlash();
+}
+
+/* =========================================================
+   QUIZZES
+   ========================================================= */
+function renderQuizzes(){
+  $$('[data-quiz]').forEach(host=>{
+    const key=host.dataset.quiz;
+    const qs=QUIZZES[key];if(!qs)return;
+    const state={i:0,score:0,answered:false};
+    function draw(){
+      if(state.i>=qs.length){
+        const pct=Math.round(state.score/qs.length*100);
+        const pass=pct>=70;
+        host.innerHTML=`<div class="quiz-head"><span class="qbadge">Knowledge Check</span></div>
+          <div class="quiz-result">
+            <div class="score">${pct}<span>%</span></div>
+            <p>${state.score} of ${qs.length} correct — ${pass?'<b style="color:var(--green)">Passed ✓</b>':'<b style="color:var(--red)">Keep practicing</b>'}</p>
+            <button class="btn gold" data-retry>↺ Retake quiz</button>
+          </div>`;
+        $('[data-retry]',host).addEventListener('click',()=>{state.i=0;state.score=0;state.answered=false;draw();});
+        if(key==='final'&&pass){store.set('finalPassed',true);$('#finalDoneMsg').style.display='block';}
+        return;
+      }
+      const q=qs[state.i];state.answered=false;
+      host.innerHTML=`<div class="quiz-head"><span class="qbadge">${key==='final'?'Final Assessment':'Knowledge Check'}</span><span class="quiz-progress">Question ${state.i+1} / ${qs.length}</span></div>
+        <div class="quiz-q">${q.q}</div>
+        <div class="quiz-opts">${q.opts.map((o,i)=>`<div class="quiz-opt" data-opt="${i}"><span class="ltr">${String.fromCharCode(65+i)}</span><span>${o}</span></div>`).join('')}</div>
+        <div class="quiz-feedback"></div>
+        <div class="quiz-foot" style="display:none"><button class="btn gold" data-next>${state.i===qs.length-1?'See results':'Next question'} →</button></div>`;
+      $$('.quiz-opt',host).forEach(opt=>opt.addEventListener('click',()=>{
+        if(state.answered)return;state.answered=true;
+        const chosen=+opt.dataset.opt;const correct=q.correct;
+        $$('.quiz-opt',host).forEach(o=>{o.classList.add('disabled');const oi=+o.dataset.opt;if(oi===correct)o.classList.add('correct');else if(oi===chosen)o.classList.add('wrong');});
+        const fb=$('.quiz-feedback',host);
+        if(chosen===correct){state.score++;fb.className='quiz-feedback show ok';fb.innerHTML='<b>Correct.</b> '+q.why;}
+        else{fb.className='quiz-feedback show no';fb.innerHTML='<b>Not quite.</b> '+q.why;}
+        $('.quiz-foot',host).style.display='flex';
+      }));
+      $('[data-next]',host).addEventListener('click',()=>{state.i++;draw();});
+    }
+    draw();
+  });
+}
+
+/* =========================================================
+   CHECKLISTS (persisted)
+   ========================================================= */
+function initChecklists(){
+  $$('[data-check]').forEach(list=>{
+    const key='check_'+list.dataset.check;
+    const saved=store.get(key,{});
+    $$('.check-item',list).forEach((item,i)=>{
+      if(saved[i])item.classList.add('checked');
+      item.addEventListener('click',()=>{
+        item.classList.toggle('checked');
+        const cur=store.get(key,{});cur[i]=item.classList.contains('checked');store.set(key,cur);
+      });
+    });
+  });
+}
+
+/* =========================================================
+   PROGRESS + completion
+   ========================================================= */
+function getDone(){return store.get('done',{});}
+function setDone(d){store.set('done',d);}
+function refreshProgress(){
+  const done=getDone();
+  const total=MODULES.length;
+  const count=MODULES.filter(m=>done[m.id]).length;
+  const pct=Math.round(count/total*100);
+  $('#progFill').style.width=pct+'%';
+  $('#progPct').textContent=pct+'%';
+  $('#tbDone').textContent=count+'/'+total;
+  MODULES.forEach(m=>{
+    const link=$('#nav-'+m.id);if(link)link.classList.toggle('done',!!done[m.id]);
+    const pc=$('#path-'+m.id);if(pc)pc.classList.toggle('done',!!done[m.id]);
+  });
+}
+function injectCompleteBars(){
+  MODULES.forEach(m=>{
+    const sec=$('#'+m.id);
+    const wrap=$('.body',sec);if(!wrap)return;
+    const idx=SECTION_ORDER.indexOf(m.id);
+    const prev=SECTION_ORDER[idx-1], next=SECTION_ORDER[idx+1];
+    const prevTitle=prev?$('#'+prev).dataset.title:'';
+    const nextTitle=next?$('#'+next).dataset.title:'';
+    const bar=document.createElement('div');
+    bar.className='complete-bar';
+    bar.innerHTML=`
+      <div class="ctxt"><b>Finished this module?</b><span>Mark it complete to track your progress.</span></div>
+      <button class="mark-btn" data-mark="${m.id}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg>
+        <span>Mark complete</span>
+      </button>`;
+    wrap.appendChild(bar);
+    const nav=document.createElement('div');
+    nav.className='sec-nav';
+    nav.innerHTML=`
+      <a class="${prev?'':'disabled'}" data-nav="${prev||''}"><div class="dir">‹ Previous</div><div class="ttl">${prevTitle||'—'}</div></a>
+      <a class="next ${next?'':'disabled'}" data-nav="${next||''}"><div class="dir">Next ›</div><div class="ttl">${nextTitle||'—'}</div></a>`;
+    wrap.appendChild(nav);
+    $$('a[data-nav]',nav).forEach(a=>a.addEventListener('click',e=>{e.preventDefault();if(a.dataset.nav)go(a.dataset.nav);}));
+  });
+  $$('[data-mark]').forEach(btn=>{
+    const id=btn.dataset.mark;
+    const sync=()=>{const done=getDone();const on=!!done[id];btn.classList.toggle('done',on);$('span',btn).textContent=on?'Completed':'Mark complete';};
+    sync();
+    btn.addEventListener('click',()=>{
+      const done=getDone();done[id]=!done[id];if(!done[id])delete done[id];setDone(done);
+      sync();refreshProgress();
+    });
+    btn._sync=sync;
+  });
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+function go(id){
+  if(!$('#'+id))id='home';
+  $$('.section').forEach(s=>s.classList.toggle('active',s.id===id));
+  $$('.sb-link').forEach(a=>a.classList.toggle('active',a.dataset.nav===id));
+  // avatar initials stay; scroll to top of content
+  window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
+  document.querySelector('.main').scrollTop=0;
+  history.replaceState(null,'','#'+id);
+  // re-sync mark buttons (in case completion changed elsewhere)
+  $$('[data-mark]').forEach(b=>b._sync&&b._sync());
+}
+function closeSidebar(){$('#sidebar').classList.remove('open');$('#scrim').classList.remove('show');}
+function openSidebar(){$('#sidebar').classList.add('open');$('#scrim').classList.add('show');}
+
+/* =========================================================
+   SEARCH (knowledge base)
+   ========================================================= */
+let searchIndex=[];
+function buildSearchIndex(){
+  // modules / sections
+  SECTION_ORDER.forEach(id=>{
+    const sec=$('#'+id);
+    const title=sec.dataset.title, cat=sec.dataset.cat;
+    const text=sec.innerText.replace(/\s+/g,' ').trim();
+    searchIndex.push({cat:cat,title:title,nav:id,text:text});
+  });
+  // objections (granular)
+  OBJECTIONS.forEach(o=>searchIndex.push({cat:'Objection',title:o.q,nav:'s10',text:o.q+' '+o.a}));
+  // scripts (granular)
+  SCRIPTS.forEach(s=>searchIndex.push({cat:'Script',title:s.title,nav:'s9',text:s.title+' '+s.blocks.map(b=>b.text).join(' ')+' '+s.note}));
+  // scenarios
+  SCENARIOS.forEach(s=>searchIndex.push({cat:'Role-play',title:s.title,nav:'s15',text:s.title+' '+s.setup+' '+s.guide.replace(/<[^>]+>/g,' ')}));
+}
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function highlight(text,q){
+  const re=new RegExp('('+esc(q)+')','ig');
+  return text.replace(re,'<mark>$1</mark>');
+}
+function runSearch(q){
+  const res=$('#searchResults');
+  q=q.trim();
+  if(q.length<2){res.innerHTML='<div class="search-empty">Start typing to search the entire knowledge base — modules, scripts, objections, pricing, and more.</div>';return;}
+  const ql=q.toLowerCase();
+  const hits=[];
+  searchIndex.forEach(item=>{
+    const tl=item.title.toLowerCase(), bl=item.text.toLowerCase();
+    let score=0,pos=-1;
+    if(tl.includes(ql))score+=10;
+    pos=bl.indexOf(ql);
+    if(pos>=0)score+=5;
+    if(score>0)hits.push({item,score,pos});
+  });
+  hits.sort((a,b)=>b.score-a.score);
+  if(!hits.length){res.innerHTML='<div class="search-empty">No results for "<b>'+q.replace(/</g,'&lt;')+'</b>". Try a different term.</div>';return;}
+  res.innerHTML=hits.slice(0,20).map((h,i)=>{
+    let snippet=h.item.text;
+    if(h.pos>=0){const start=Math.max(0,h.pos-50);snippet=(start>0?'…':'')+h.item.text.substr(start,160);}
+    else snippet=h.item.text.substr(0,160);
+    return `<a class="sr-item${i===0?' sel':''}" data-nav="${h.item.nav}">
+      <div class="sr-cat">${h.item.cat}</div>
+      <div class="sr-title">${highlight(h.item.title.replace(/</g,'&lt;'),q)}</div>
+      <div class="sr-snippet">${highlight(snippet.replace(/</g,'&lt;'),q)}…</div>
+    </a>`;
+  }).join('');
+  $$('.sr-item',res).forEach(a=>a.addEventListener('click',()=>{go(a.dataset.nav);closeSearch();}));
+}
+function openSearch(){$('#searchOverlay').classList.add('open');$('#searchInput').value='';$('#searchInput').focus();runSearch('');}
+function closeSearch(){$('#searchOverlay').classList.remove('open');}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+function init(){
+  renderNav();
+  renderScripts();
+  renderObjections();
+  renderScenarios();
+  injectCompleteBars();
+  renderQuizzes();
+  initChecklists();
+  initFlash();
+  buildSearchIndex();
+  refreshProgress();
+
+  // events
+  $('#menuBtn').addEventListener('click',openSidebar);
+  $('#scrim').addEventListener('click',closeSidebar);
+  $('#searchTrigger').addEventListener('click',openSearch);
+  $('#searchOverlay').addEventListener('click',e=>{if(e.target===$('#searchOverlay'))closeSearch();});
+  $('#searchInput').addEventListener('input',e=>runSearch(e.target.value));
+  $('#searchInput').addEventListener('keydown',e=>{
+    if(e.key==='Enter'){const sel=$('.sr-item.sel')||$('.sr-item');if(sel){go(sel.dataset.nav);closeSearch();}}
+  });
+  $$('[data-nav]').forEach(el=>{if(!el.classList.contains('sb-link')&&!el.classList.contains('path-card')){el.addEventListener('click',e=>{e.preventDefault();if(el.dataset.nav)go(el.dataset.nav);});}});
+
+  document.addEventListener('keydown',e=>{
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#searchOverlay').classList.contains('open')?closeSearch():openSearch();}
+    if(e.key==='Escape')closeSearch();
+  });
+
+  // initial route
+  const hash=location.hash.replace('#','');
+  go(hash&&$('#'+hash)?hash:'home');
+  if(store.get('finalPassed',false))$('#finalDoneMsg').style.display='block';
+
+  // hide loader
+  setTimeout(()=>$('#loader').classList.add('hide'),650);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+</body>
+</html>
